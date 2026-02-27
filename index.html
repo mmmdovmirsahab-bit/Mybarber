@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MyBarber — Premium Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --gold:#C8A96E;--gold2:#E8CC8A;--dark:#07090F;--dark2:#0D1119;--dark3:#141B26;
+  --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.08);--glass3:rgba(255,255,255,0.13);
+  --border:rgba(255,255,255,0.09);--border2:rgba(200,169,110,0.28);
+  --text:rgba(255,255,255,0.93);--text2:rgba(255,255,255,0.68);
+  --muted:rgba(255,255,255,0.42);--muted2:rgba(255,255,255,0.20);
+  --red:#E05050;--green:#4CAF88;
+}
+html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased}
+
+/* BG */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:linear-gradient(135deg,#07090F,#0D1119)}
+.blob{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;animation:drift 22s ease-in-out infinite alternate}
+.b1{width:550px;height:550px;opacity:.17;background:radial-gradient(#4A1D96,transparent 70%);top:-180px;left:-120px}
+.b2{width:480px;height:480px;opacity:.14;background:radial-gradient(#7C1D1D,transparent 70%);bottom:-130px;right:-80px;animation-delay:-9s}
+.b3{width:300px;height:300px;opacity:.07;background:radial-gradient(#C8A96E,transparent 70%);top:38%;left:42%;animation-delay:-16s}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(55px,38px) scale(1.13)}}
+
+/* PAGES */
+.page{position:fixed;inset:0;z-index:10;overflow-y:auto;overflow-x:hidden;padding-bottom:90px;opacity:0;pointer-events:none;transform:translateY(26px) scale(0.986);transition:opacity .42s cubic-bezier(.4,0,.2,1),transform .42s cubic-bezier(.4,0,.2,1)}
+.page.show{opacity:1;pointer-events:all;transform:none}
+.page.out{opacity:0;transform:translateY(-22px) scale(0.99);transition:opacity .25s ease,transform .25s ease}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:50;padding:14px 18px 12px;background:linear-gradient(to bottom,rgba(7,9,15,.97) 60%,transparent);backdrop-filter:blur(14px);display:flex;align-items:center;gap:12px}
+.topbar-title{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;flex:1}
+.icon-btn{width:40px;height:40px;border-radius:50%;background:var(--glass2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:17px;color:var(--text);flex-shrink:0}
+.icon-btn:active{transform:scale(.88);background:var(--glass3)}
+
+/* WELCOME */
+.welcome-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 28px;text-align:center}
+.logo-ring{width:96px;height:96px;border-radius:28px;background:linear-gradient(135deg,#C8A96E,#E8CC8A,#A07840);display:flex;align-items:center;justify-content:center;font-size:46px;margin-bottom:32px;box-shadow:0 0 0 1px rgba(200,169,110,.3),0 20px 60px rgba(200,169,110,.28);animation:logoFloat 3.5s ease-in-out infinite}
+@keyframes logoFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-12px) rotate(1deg)}}
+.w-eyebrow{font-size:10px;letter-spacing:5px;font-weight:700;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.w-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,11vw,56px);font-weight:700;line-height:1.08;letter-spacing:-1.5px;margin-bottom:16px}
+.w-title em{font-style:italic;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.w-sub{color:var(--muted);font-size:15px;line-height:1.7;max-width:290px;margin-bottom:50px}
+.w-btns{width:100%;max-width:340px}
+.role-div{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.role-div span{color:var(--muted2);font-size:11px;letter-spacing:2px;white-space:nowrap}
+.role-div::before,.role-div::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--border),transparent)}
+
+/* BUTTONS */
+.btn{display:block;width:100%;padding:16px 24px;border:none;border-radius:16px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;cursor:pointer;letter-spacing:.3px;transition:all .22s;margin-bottom:12px;position:relative;overflow:hidden}
+.btn:active{transform:scale(.97)}
+.btn-gold{background:linear-gradient(135deg,#C8A96E,#E8CC8A,#B8924E);color:#1A0E00;box-shadow:0 8px 32px rgba(200,169,110,.32),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(200,169,110,.42)}
+.btn-glass{background:var(--glass2);border:1px solid var(--border3, rgba(255,255,255,.15));color:var(--text);backdrop-filter:blur(10px)}
+.btn-glass:hover{background:var(--glass3)}
+.btn-sm{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:12px;background:var(--glass2);border:1px solid var(--border);color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-sm:active{transform:scale(.93)}
+.btn-sm.gold-sm{background:rgba(200,169,110,.15);border-color:var(--border2);color:var(--gold)}
+
+/* CARDS */
+.card{background:var(--glass);border:1px solid var(--border);border-radius:20px;backdrop-filter:blur(18px);padding:22px 20px;margin:0 16px 14px;box-shadow:0 8px 40px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.06)}
+.card-gold{border-color:var(--border2);background:linear-gradient(135deg,rgba(200,169,110,.06),rgba(200,169,110,.02))}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--border2),transparent)}
+
+/* FORMS */
+.fgroup{margin-bottom:18px}
+.flabel{display:block;margin-bottom:8px;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+.finput,.fselect,.ftextarea{width:100%;padding:14px 16px;background:rgba(255,255,255,.055);border:1px solid var(--border);border-radius:14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;outline:none;transition:all .22s;-webkit-appearance:none}
+.finput::placeholder{color:var(--muted2)}
+.finput:focus,.fselect:focus,.ftextarea:focus{border-color:var(--gold);background:rgba(200,169,110,.07);box-shadow:0 0 0 3px rgba(200,169,110,.12)}
+.fselect{cursor:pointer}
+.fselect option{background:var(--dark2);color:var(--text)}
+.ftextarea{resize:none;height:90px;line-height:1.65}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* PAGE HERO */
+.pg-hero{padding:26px 20px 20px;text-align:center;background:linear-gradient(to bottom,rgba(200,169,110,.07),transparent);border-bottom:1px solid var(--border);margin-bottom:16px}
+.pg-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;margin-bottom:14px;background:rgba(200,169,110,.12);border:1px solid var(--border2);color:var(--gold);font-size:12px;font-weight:600;letter-spacing:1px}
+.pg-hero h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;margin-bottom:8px}
+.pg-hero p{color:var(--muted);font-size:14px;line-height:1.65;max-width:270px;margin:0 auto}
+
+/* STEPPER */
+.stepper{display:flex;align-items:center;justify-content:center;gap:6px;padding:0 20px 22px}
+.sdot{height:7px;border-radius:4px;background:var(--border);transition:all .32s ease}
+.sdot.done{width:14px;background:rgba(200,169,110,.45)}
+.sdot.active{width:28px;background:var(--gold)}
+.sdot.pend{width:7px}
+
+/* AVATAR UPLOAD */
+.ava-upload{width:88px;height:88px;border-radius:50%;margin:0 auto 14px;border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .22s;background:var(--glass2);font-size:32px;overflow:hidden;position:relative}
+.ava-upload:hover{border-color:var(--gold);transform:scale(1.04)}
+.ava-upload img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.ava-overlay{position:absolute;inset:0;border-radius:50%;background:rgba(200,169,110,.35);display:none;align-items:center;justify-content:center;font-size:18px}
+.ava-upload:hover .ava-overlay{display:flex}
+
+/* PHOTO GRID */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.pcell{aspect-ratio:1;border-radius:14px;background:var(--glass2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .22s;overflow:hidden;font-size:26px;position:relative}
+.pcell:hover{border-color:var(--gold);transform:scale(1.02)}
+.pcell img{width:100%;height:100%;object-fit:cover}
+.pcell.add{border-style:dashed;color:var(--muted)}
+.pcell.add:hover{color:var(--gold)}
+
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 14px;border-radius:10px;background:var(--glass2);border:1px solid var(--border);color:var(--muted);font-size:13px;cursor:pointer;transition:all .18s;user-select:none}
+.chip.on{background:rgba(200,169,110,.16);border-color:var(--gold);color:var(--gold);font-weight:600}
+.chip:active{transform:scale(.93)}
+
+/* PRICE ROW */
+.prow{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border)}
+.prow:last-child{border-bottom:none}
+.picon{width:40px;height:40px;border-radius:12px;background:var(--glass2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:1px solid var(--border)}
+.plabel{flex:1}
+.plabel .pn{font-size:14px;font-weight:600}
+.plabel .pd{font-size:11px;color:var(--muted);margin-top:2px}
+.pinp{width:70px;padding:8px 10px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;text-align:right;outline:none;transition:border-color .2s}
+.pinp:focus{border-color:var(--gold);background:rgba(200,169,110,.07)}
+.punit{font-size:12px;color:var(--muted);width:28px}
+
+/* BARBER CARD */
+.bcard{display:flex;align-items:center;gap:14px;padding:16px;border-radius:20px;background:var(--glass2);border:1px solid var(--border);margin:0 16px 12px;cursor:pointer;transition:all .22s;backdrop-filter:blur(12px)}
+.bcard:hover{border-color:var(--border2);transform:translateY(-1px);background:var(--glass3)}
+.bcard:active{transform:scale(.98)}
+.bava{width:56px;height:56px;border-radius:50%;flex-shrink:0;border:2px solid rgba(200,169,110,.3);background:linear-gradient(135deg,#3D1F6E,#6E1F1F);display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden}
+.bava img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.binfo{flex:1}
+.bname{font-weight:700;font-size:15px;margin-bottom:3px}
+.bloc{font-size:12px;color:var(--muted);margin-bottom:7px}
+.btags{display:flex;gap:6px;flex-wrap:wrap}
+
+/* TAGS */
+.tag{padding:3px 9px;border-radius:20px;font-size:10px;font-weight:600}
+.tg{background:rgba(200,169,110,.14);color:var(--gold);border:1px solid var(--border2)}
+.tgr{background:rgba(76,175,136,.14);color:var(--green);border:1px solid rgba(76,175,136,.25)}
+.tgy{background:var(--glass2);color:var(--muted);border:1px solid var(--border)}
+
+/* PROFILE HERO */
+.phero{background:linear-gradient(135deg,rgba(200,169,110,.09),rgba(124,58,237,.07));border-bottom:1px solid var(--border2);padding:26px 20px 20px;margin-bottom:16px;display:flex;gap:16px;align-items:flex-start}
+.pava{width:76px;height:76px;border-radius:50%;flex-shrink:0;border:2px solid var(--gold);background:linear-gradient(135deg,#3D1F6E,#6E1F1F);display:flex;align-items:center;justify-content:center;font-size:30px;overflow:hidden;box-shadow:0 0 0 4px rgba(200,169,110,.12)}
+.pava img{width:100%;height:100%;object-fit:cover}
+.pname{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:3px}
+.ploc{color:var(--muted);font-size:13px;margin-bottom:10px}
+.badge-row{display:flex;gap:6px;flex-wrap:wrap}
+.badge{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700}
+.bg{background:rgba(200,169,110,.15);color:var(--gold);border:1px solid var(--border2)}
+.bgr{background:rgba(76,175,136,.15);color:var(--green);border:1px solid rgba(76,175,136,.25)}
+.bgy{background:var(--glass2);color:var(--muted);border:1px solid var(--border)}
+
+/* TAB BAR */
+.tab-bar{display:flex;margin:0 16px 18px;background:var(--glass2);border:1px solid var(--border);border-radius:14px;padding:4px;gap:3px}
+.tab{flex:1;padding:10px 6px;text-align:center;border-radius:11px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .22s}
+.tab.on{background:linear-gradient(135deg,#C8A96E,#E8CC8A);color:#1A0E00;font-weight:700;box-shadow:0 4px 14px rgba(200,169,110,.28)}
+
+/* PORTFOLIO */
+.port-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.port-item{aspect-ratio:1;border-radius:14px;background:var(--glass2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden;cursor:pointer;transition:all .2s}
+.port-item:hover{border-color:var(--gold);transform:scale(1.03)}
+.port-item img{width:100%;height:100%;object-fit:cover}
+
+/* REVIEWS */
+.review{padding:14px 0;border-bottom:1px solid var(--border)}
+.review:last-child{border-bottom:none}
+.rev-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.rev-name{font-weight:600;font-size:14px}
+.stars{color:var(--gold);font-size:13px;letter-spacing:1px}
+.rev-text{font-size:13px;color:var(--text2);line-height:1.55}
+.rev-date{font-size:11px;color:var(--muted);margin-top:4px}
+
+/* TIME GRID */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.tslot{padding:12px 6px;text-align:center;border-radius:12px;background:var(--glass2);border:1px solid var(--border);font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
+.tslot:hover{border-color:var(--gold);color:var(--gold)}
+.tslot.picked{background:rgba(200,169,110,.16);border-color:var(--gold);color:var(--gold);font-weight:700}
+.tslot.taken{opacity:.3;cursor:not-allowed;pointer-events:none}
+
+/* HRS */
+.hrs-row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px}
+.hrs-row:last-child{border-bottom:none}
+.day-n{width:38px;color:var(--muted);font-size:12px;font-weight:600}
+.hinp{width:74px;padding:7px 10px;background:var(--glass2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.hinp:focus{border-color:var(--gold)}
+.hsep{color:var(--muted);font-size:12px;font-weight:600}
+
+/* TOGGLE */
+.toggle{width:46px;height:26px;border-radius:13px;background:var(--border);position:relative;cursor:pointer;transition:background .28s;flex-shrink:0}
+.toggle.on{background:linear-gradient(135deg,var(--gold),var(--gold2))}
+.toggle::after{content:'';position:absolute;width:20px;height:20px;border-radius:50%;background:white;top:3px;left:3px;transition:transform .28s cubic-bezier(.4,0,.2,1);box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.toggle.on::after{transform:translateX(20px)}
+
+/* APPT */
+.appt{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:var(--glass2);border:1px solid var(--border);margin-bottom:10px}
+.anum{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:rgba(200,169,110,.12);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--gold)}
+.ainfo{flex:1}
+.aname{font-weight:600;font-size:14px;margin-bottom:2px}
+.adetail{font-size:12px;color:var(--muted)}
+.astatus{padding:5px 10px;border-radius:20px;font-size:10px;font-weight:700}
+.s-now{background:rgba(76,175,136,.15);color:var(--green)}
+.s-next{background:rgba(200,169,110,.14);color:var(--gold)}
+.s-wait{background:var(--glass2);color:var(--muted)}
+
+/* STATS */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px;margin-bottom:16px}
+.sbox{background:var(--glass2);border:1px solid var(--border);border-radius:18px;padding:18px 16px;text-align:center}
+.snum{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:var(--gold);line-height:1}
+.slbl{font-size:11px;color:var(--muted);margin-top:4px}
+.srow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.smini{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center}
+.smini .sn{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--gold)}
+.smini .sl{font-size:10px;color:var(--muted);margin-top:3px}
+
+/* SUMMARY */
+.sumbox{background:rgba(200,169,110,.06);border:1px solid var(--border2);border-radius:16px;padding:16px 18px;margin:14px 0}
+.sum-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:14px}
+.sum-row:last-child{border-bottom:none}
+.sum-row .sl{color:var(--muted)}
+.sum-total{font-size:17px;font-weight:700;color:var(--gold)}
+
+/* SEARCHBAR */
+.searchbar{margin:0 16px 14px;position:relative}
+.searchbar input{width:100%;padding:13px 16px 13px 44px;background:var(--glass2);border:1px solid var(--border);border-radius:14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:all .2s}
+.searchbar input::placeholder{color:var(--muted2)}
+.searchbar input:focus{border-color:var(--gold);background:rgba(200,169,110,.05);box-shadow:0 0 0 3px rgba(200,169,110,.1)}
+.si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:17px;pointer-events:none}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.78);backdrop-filter:blur(12px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-bg.show{opacity:1;pointer-events:all}
+.modal-sheet{background:linear-gradient(to bottom,var(--dark3),var(--dark2));border:1px solid var(--border);border-bottom:none;border-radius:28px 28px 0 0;padding:10px 24px 60px;width:100%;max-width:500px;text-align:center;transform:translateY(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);box-shadow:0 -20px 60px rgba(0,0,0,.5)}
+.modal-bg.show .modal-sheet{transform:none}
+.m-handle{width:40px;height:4px;border-radius:2px;background:var(--muted2);margin:0 auto 24px}
+.m-icon{font-size:56px;margin-bottom:16px}
+.modal-sheet h3{font-family:'Cormorant Garamond',serif;font-size:28px;margin-bottom:12px}
+.modal-sheet p{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:28px}
+
+/* LOADING */
+.loader{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;gap:12px;color:var(--muted);font-size:14px}
+.spin{width:32px;height:32px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:50px 20px;color:var(--muted)}
+.empty .ei{font-size:48px;margin-bottom:12px}
+.empty p{font-size:14px;line-height:1.6}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+
+/* UTILS */
+.px{padding-left:16px;padding-right:16px}
+.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}
+.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mb16{margin-bottom:16px}
+.flex{display:flex;align-items:center}.flex-between{display:flex;align-items:center;justify-content:space-between}
+.gap8{gap:8px}.gap12{gap:12px}
+.gold{color:var(--gold)}.muted{color:var(--muted)}.t2{color:var(--text2)}
+.small{font-size:13px}.xs{font-size:11px}.fw6{font-weight:600}.fw7{font-weight:700}
+.serif{font-family:'Cormorant Garamond',serif}.center{text-align:center}.lh{line-height:1.65}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<div class="bg">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
+<!-- ══════ WELCOME ══════ -->
+<div class="page show" id="pg-welcome">
+  <div class="welcome-wrap">
+    <div class="logo-ring">&#9986;&#65039;</div>
+    <div class="w-eyebrow">MyBarber Studio</div>
+    <h1 class="w-title">The Art of<br><em>Clean Cuts</em></h1>
+    <p class="w-sub">Bərbərlər qeydiyyatdan keçir, müştərilər onları tapır. Real vaxtda.</p>
+    <div class="w-btns">
+      <div class="role-div"><span>KİMSİNİZ?</span></div>
+      <button class="btn btn-gold" onclick="go('pg-client-reg')">&#128100; Müştəriyəm</button>
+      <button class="btn btn-glass" onclick="go('pg-barber-reg')">&#9986;&#65039; Bərbərəm</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ CLIENT REGISTER ══════ -->
+<div class="page" id="pg-client-reg">
+  <div class="topbar">
+    <div class="icon-btn" onclick="go('pg-welcome')">&#8592;</div>
+    <div class="topbar-title">Müştəri Qeydiyyatı</div>
+  </div>
+  <div class="pg-hero">
+    <div class="pg-badge">&#128196; Yeni Hesab</div>
+    <h2>Xoş Gəldiniz!</h2>
+    <p>Bir neçə saniyəyə qeydiyyatdan keçin</p>
+  </div>
+  <div class="card">
+    <div class="sec-label">Şəxsi Məlumat</div>
+    <div class="frow mb16">
+      <div class="fgroup" style="margin-bottom:0">
+        <label class="flabel">Ad</label>
+        <input class="finput" id="cl-fn" type="text" placeholder="Adınız">
+      </div>
+      <div class="fgroup" style="margin-bottom:0">
+        <label class="flabel">Soyad</label>
+        <input class="finput" id="cl-ln" type="text" placeholder="Soyadınız">
+      </div>
+    </div>
+    <div class="fgroup">
+      <label class="flabel">Telefon Nömrəsi</label>
+      <input class="finput" id="cl-ph" type="tel" placeholder="+994 50 XXX XX XX">
+    </div>
+    <div class="fgroup">
+      <label class="flabel">Rayon</label>
+      <select class="fselect" id="cl-dist">
+        <option value="">Seçin...</option>
+        <option>Nizami</option><option>Nəsimi</option><option>Binəqədi</option>
+        <option>Sabunçu</option><option>Xəzər</option><option>Suraxanı</option>
+        <option>Abşeron</option><option>Qaradağ</option>
+      </select>
+    </div>
+    <div class="fgroup" style="margin-bottom:0">
+      <label class="flabel">Sevimli Saç Tərzi</label>
+      <select class="fselect" id="cl-style">
+        <option value="">Seçin...</option>
+        <option>Klassik kəsim</option><option>Fade / Gradient</option>
+        <option>Pompadour</option><option>Undercut</option><option>Buzz Cut</option>
+      </select>
+    </div>
+  </div>
+  <div class="px">
+    <button class="btn btn-gold" onclick="clientRegister()">Qeydiyyatı Tamamla &#10003;</button>
+    <p class="small muted center mt8">Artıq hesabınız var? <span class="gold fw6" style="cursor:pointer" onclick="go('pg-client-home')">Bərbər Tap &#8594;</span></p>
+  </div>
+</div>
+
+<!-- ══════ CLIENT HOME ══════ -->
+<div class="page" id="pg-client-home">
+  <div class="topbar">
+    <div class="icon-btn" onclick="go('pg-welcome')">&#8592;</div>
+    <div class="topbar-title">Bərbərlər</div>
+    <div class="icon-btn" onclick="loadBarbers()" title="Yenilə">&#8635;</div>
+  </div>
+  <div class="searchbar">
+    <span class="si">&#128269;</span>
+    <input type="text" placeholder="Ad, rayon axtar..." oninput="filterBarbers(this.value)">
+  </div>
+  <div style="padding:0 16px 14px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none">
+    <div class="chip on" onclick="setCat(this,'all')">Hamısı</div>
+    <div class="chip" onclick="setCat(this,'boş')">Boş var</div>
+    <div class="chip" onclick="setCat(this,'Nizami')">Nizami</div>
+    <div class="chip" onclick="setCat(this,'Nəsimi')">Nəsimi</div>
+    <div class="chip" onclick="setCat(this,'Binəqədi')">Binəqədi</div>
+  </div>
+  <div id="barber-list">
+    <div class="loader"><div class="spin"></div>Bərbərlər yüklənir...</div>
+  </div>
+</div>
+
+<!-- ══════ BARBER PROFILE (client view) ══════ -->
+<div class="page" id="pg-bprofile">
+  <div class="topbar">
+    <div class="icon-btn" onclick="go('pg-client-home')">&#8592;</div>
+    <div class="topbar-title" id="bpTitle">Profil</div>
+  </div>
+  <div class="phero">
+    <div class="pava" id="bpAva">&#128100;</div>
+    <div>
+      <div class="pname" id="bpName">–</div>
+      <div class="ploc" id="bpLoc">–</div>
+      <div class="badge-row">
+        <span class="badge bg" id="bpRating">&#9733; –</span>
+        <span class="badge bgr" id="bpStatus">–</span>
+        <span class="badge bgy" id="bpExp">–</span>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab on" onclick="bpTab(this,'bpt-port')">Portfolio</div>
+    <div class="tab" onclick="bpTab(this,'bpt-svc')">Xidmətlər</div>
+    <div class="tab" onclick="bpTab(this,'bpt-rev')">Rəylər</div>
+    <div class="tab" onclick="bpTab(this,'bpt-info')">Məlumat</div>
+  </div>
+  <!-- Portfolio -->
+  <div id="bpt-port">
+    <div style="padding:0 16px">
+      <div class="port-grid" id="bpPortGrid">
+        <div class="port-item" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">&#9986;</div>
+        <div class="port-item" style="background:linear-gradient(135deg,#0f3460,#1D2F5C)">&#128136;</div>
+        <div class="port-item" style="background:linear-gradient(135deg,#1a0a0a,#3d1515)">&#129491;</div>
+        <div class="port-item" style="background:linear-gradient(135deg,#0a1a0a,#153d15)">&#128166;</div>
+      </div>
+    </div>
+    <div class="card mt12">
+      <div class="sec-label">Haqqında</div>
+      <p class="small lh t2" id="bpAbout">–</p>
+    </div>
+    <div class="card">
+      <div class="sec-label">İş Saatları</div>
+      <div class="flex-between small" style="padding:8px 0;border-bottom:1px solid var(--border)">
+        <span class="muted">B.ertəsi – Cümə</span><span class="gold fw6" id="bpHrs1">09:00 – 20:00</span>
+      </div>
+      <div class="flex-between small" style="padding:8px 0">
+        <span class="muted">Şənbə – Bazar</span><span class="gold fw6" id="bpHrs2">10:00 – 18:00</span>
+      </div>
+    </div>
+    <div class="px"><button class="btn btn-gold" onclick="go('pg-booking')">Zapis Ol &#128197;</button></div>
+  </div>
+  <!-- Services -->
+  <div id="bpt-svc" class="hidden">
+    <div class="card" id="bpSvcList">
+      <div class="sec-label">Qiymət Siyahısı</div>
+    </div>
+    <div class="px"><button class="btn btn-gold" onclick="go('pg-booking')">Zapis Ol &#128197;</button></div>
+  </div>
+  <!-- Reviews -->
+  <div id="bpt-rev" class="hidden">
+    <div class="card">
+      <div class="sec-label">Müştəri Rəyləri</div>
+      <div class="review">
+        <div class="rev-top"><span class="rev-name">Vüsal A.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+        <p class="rev-text">Çox peşəkar usta, əlləri qızıldır!</p>
+        <div class="rev-date">3 gün əvvəl</div>
+      </div>
+      <div class="review">
+        <div class="rev-top"><span class="rev-name">Rəşad M.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+        <p class="rev-text">Fade-i Bakıda ən yaxşı bu usta edir.</p>
+        <div class="rev-date">1 həftə əvvəl</div>
+      </div>
+      <div class="review">
+        <div class="rev-top"><span class="rev-name">Tural H.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div>
+        <p class="rev-text">Salon çox səliqəli, xidmət keyfiyyətlidir.</p>
+        <div class="rev-date">2 həftə əvvəl</div>
+      </div>
+    </div>
+  </div>
+  <!-- Info -->
+  <div id="bpt-info" class="hidden">
+    <div class="card">
+      <div class="sec-label">Salon Məlumatı</div>
+      <div class="flex" style="gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span style="font-size:20px">&#128205;</span>
+        <div><div class="small fw6" id="bpSalon">–</div><div class="xs muted mt4" id="bpAddr">–</div></div>
+      </div>
+      <div class="flex" style="gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span style="font-size:20px">&#128222;</span>
+        <div><div class="small fw6" id="bpPhone">–</div></div>
+      </div>
+      <div class="flex" style="gap:12px;padding:10px 0">
+        <span style="font-size:20px">&#128249;</span>
+        <div><div class="small fw6" id="bpIg">–</div></div>
+      </div>
+    </div>
+    <div class="px"><button class="btn btn-gold" onclick="go('pg-booking')">Zapis Ol &#128197;</button></div>
+  </div>
+</div>
+
+<!-- ══════ BOOKING ══════ -->
+<div class="page" id="pg-booking">
+  <div class="topbar">
+    <div class="icon-btn" onclick="go('pg-bprofile')">&#8592;</div>
+    <div class="topbar-title">Zapis</div>
+  </div>
+  <div class="pg-hero">
+    <div class="pg-badge">&#128197; Yer Ayırın</div>
+    <h2 id="bk-name">Usta</h2>
+    <p>Xidmət və vaxtı seçin</p>
+  </div>
+  <div class="card card-gold">
+    <div class="sec-label">Xidmət Seçin</div>
+    <div id="bk-svcs"></div>
+  </div>
+  <div class="card">
+    <div class="sec-label">Tarix</div>
+    <input class="finput" type="date" id="bk-date" style="color-scheme:dark">
+  </div>
+  <div class="card">
+    <div class="sec-label">Vaxt Seçin</div>
+    <div class="tgrid">
+      <div class="tslot taken">09:00</div>
+      <div class="tslot taken">09:30</div>
+      <div class="tslot" onclick="pickTime(this)">10:00</div>
+      <div class="tslot" onclick="pickTime(this)">10:30</div>
+      <div class="tslot" onclick="pickTime(this)">11:00</div>
+      <div class="tslot taken">11:30</div>
+      <div class="tslot" onclick="pickTime(this)">13:00</div>
+      <div class="tslot" onclick="pickTime(this)">14:00</div>
+      <div class="tslot" onclick="pickTime(this)">15:00</div>
+      <div class="tslot" onclick="pickTime(this)">16:00</div>
+      <div class="tslot taken">17:00</div>
+      <div class="tslot" onclick="pickTime(this)">18:00</div>
+    </div>
+  </div>
+  <div class="card hidden" id="bk-summary">
+    <div class="sec-label">Xülasə</div>
+    <div class="sumbox">
+      <div class="sum-row"><span class="sl">Usta</span><span class="fw6" id="sum-bar">–</span></div>
+      <div class="sum-row"><span class="sl">Xidmət</span><span class="fw6" id="sum-svc">–</span></div>
+      <div class="sum-row"><span class="sl">Tarix</span><span class="fw6" id="sum-date">–</span></div>
+      <div class="sum-row"><span class="sl">Vaxt</span><span class="fw6" id="sum-time">–</span></div>
+      <div class="sum-row"><span class="sl">Ümumi</span><span class="sum-total" id="sum-price">–</span></div>
+    </div>
+  </div>
+  <div class="px">
+    <button class="btn btn-gold" onclick="confirmBooking()">Zapisi Təsdiqlə &#10003;</button>
+  </div>
+</div>
+
+<!-- ══════ BARBER REGISTER — STEP 1 ══════ -->
+<div class="page" id="pg-barber-reg">
+  <div class="topbar">
+    <div class="icon-btn" onclick="go('pg-welcome')">&#8592;</div>
+    <div class="topbar-title">Bərbər Qeydiyyatı</div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div id="br-s1">
+    <div class="pg-hero">
+      <div class="pg-badge">&#128196; Addım 1 / 3</div>
+      <h2>Şəxsi Məlumat</h2>
+      <p>Ad, nömrə və salon məlumatlarınızı daxil edin</p>
+    </div>
+    <div class="stepper">
+      <div class="sdot active"></div><div class="sdot pend"></div><div class="sdot pend"></div>
+    </div>
+    <div class="card">
+      <div class="sec-label">Profil Şəkli</div>
+      <div class="ava-upload" id="br-ava" onclick="document.getElementById('br-photo').click()">
+        <span id="br-ava-icon">&#128100;</span>
+        <div class="ava-overlay">&#9998;</div>
+      </div>
+      <input type="file" id="br-photo" accept="image/*" style="display:none" onchange="uploadAva(this,'br-ava','br-ava-icon')">
+      <p class="small muted center mt4 mb16">Profil şəklinizi yükləyin</p>
+      <div class="frow mb16">
+        <div class="fgroup" style="margin-bottom:0"><label class="flabel">Ad</label><input class="finput" id="br-fn" type="text" placeholder="Adınız"></div>
+        <div class="fgroup" style="margin-bottom:0"><label class="flabel">Soyad</label><input class="finput" id="br-ln" type="text" placeholder="Soyadınız"></div>
+      </div>
+      <div class="fgroup"><label class="flabel">Telefon</label><input class="finput" id="br-ph" type="tel" placeholder="+994 50 XXX XX XX"></div>
+      <div class="fgroup"><label class="flabel">Instagram (könüllü)</label><input class="finput" id="br-ig" type="text" placeholder="@hesabınız"></div>
+      <div class="fgroup" style="margin-bottom:0"><label class="flabel">Haqqında</label><textarea class="ftextarea" id="br-bio" placeholder="Özünüz haqqında qısa məlumat..."></textarea></div>
+    </div>
+    <div class="card">
+      <div class="sec-label">İş Məkanı</div>
+      <div class="fgroup"><label class="flabel">Salon adı</label><input class="finput" id="br-salon" type="text" placeholder="Elite Barber Salon"></div>
+      <div class="fgroup"><label class="flabel">Rayon</label>
+        <select class="fselect" id="br-dist">
+          <option value="">Seçin...</option>
+          <option>Nizami</option><option>Nəsimi</option><option>Binəqədi</option>
+          <option>Sabunçu</option><option>Xəzər</option><option>Suraxanı</option><option>Abşeron</option>
+        </select>
+      </div>
+      <div class="fgroup"><label class="flabel">Dəqiq Ünvan</label><input class="finput" id="br-addr" type="text" placeholder="Küçə, ev nömrəsi..."></div>
+      <div class="fgroup" style="margin-bottom:0"><label class="flabel">Təcrübə</label>
+        <select class="fselect" id="br-exp">
+          <option>1-2 il</option><option>3-5 il</option><option>5-10 il</option><option>10+ il</option><option>15+ il</option>
+        </select>
+      </div>
+    </div>
+    <div class="px"><button class="btn btn-gold" onclick="brStep2()">Davam Et &#8594;</button></div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="br-s2" class="hidden">
+    <div class="pg-hero">
+      <div class="pg-badge">&#128247; Addım 2 / 3</div>
+      <h2>Xidmətlər & Portfolio</h2>
+      <p>Kateqoriyaları seçin, şəkil əlavə edin</p>
+    </div>
+    <div class="stepper">
+      <div class="sdot done"></div><div class="sdot active"></div><div class="sdot pend"></div>
+    </div>
+    <div class="card">
+      <div class="sec-label">Edə Bildiyiniz Xidmətlər</div>
+      <div class="chips" id="svc-chips">
+        <div class="chip on" onclick="this.classList.toggle('on')">&#9986; Saç kəsimi</div>
+        <div class="chip on" onclick="this.classList.toggle('on')">&#128299; Saqqal</div>
+        <div class="chip on" onclick="this.classList.toggle('on')">&#128136; Fade</div>
+        <div class="chip" onclick="this.classList.toggle('on')">&#128166; Buxar Masaj</div>
+        <div class="chip" onclick="this.classList.toggle('on')">&#128167; Saç boyası</div>
+        <div class="chip" onclick="this.classList.toggle('on')">&#9999; Qaş dizayn</div>
+        <div class="chip" onclick="this.classList.toggle('on')">&#128293; Keratin</div>
+        <div class="chip" onclick="this.classList.toggle('on')">&#9813; Pompadour</div>
+        <div class="chip" onclick="this.classList.toggle('on')">&#9728; Uşaq kəsimi</div>
+        <div class="chip" onclick="this.classList.toggle('on')">&#128165; Hot Towel</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sec-label">Portfolio Şəkilləri</div>
+      <div class="pgrid" id="port-grid">
+        <div class="pcell add" onclick="document.getElementById('pg1').click()">+</div>
+        <div class="pcell add" onclick="document.getElementById('pg2').click()">+</div>
+        <div class="pcell add" onclick="document.getElementById('pg3').click()">+</div>
+        <div class="pcell add" onclick="document.getElementById('pg4').click()">+</div>
+      </div>
+      <input type="file" id="pg1" accept="image/*" style="display:none" onchange="portPic(this,0)">
+      <input type="file" id="pg2" accept="image/*" style="display:none" onchange="portPic(this,1)">
+      <input type="file" id="pg3" accept="image/*" style="display:none" onchange="portPic(this,2)">
+      <input type="file" id="pg4" accept="image/*" style="display:none" onchange="portPic(this,3)">
+    </div>
+    <div class="px flex gap8">
+      <button class="btn btn-glass" style="margin:0;flex:0 0 auto;width:auto;padding:16px 20px" onclick="showStep(1)">&#8592;</button>
+      <button class="btn btn-gold" style="margin:0;flex:1" onclick="brStep3()">Davam Et &#8594;</button>
+    </div>
+    <div style="height:16px"></div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="br-s3" class="hidden">
+    <div class="pg-hero">
+      <div class="pg-badge">&#128176; Addım 3 / 3</div>
+      <h2>Qiymətlər & İş Saatları</h2>
+      <p>Hər xidmət üçün öz qiymətinizi yazın</p>
+    </div>
+    <div class="stepper">
+      <div class="sdot done"></div><div class="sdot done"></div><div class="sdot active"></div>
+    </div>
+    <div class="card">
+      <div class="sec-label">Qiymətlər (AZN)</div>
+      <div class="prow"><div class="picon">&#9986;</div><div class="plabel"><div class="pn">Saç kəsimi</div></div><input class="pinp" type="number" value="15" id="p-hc"><span class="punit">AZN</span></div>
+      <div class="prow"><div class="picon">&#128299;</div><div class="plabel"><div class="pn">Saqqal</div></div><input class="pinp" type="number" value="10" id="p-bd"><span class="punit">AZN</span></div>
+      <div class="prow"><div class="picon">&#128136;</div><div class="plabel"><div class="pn">Saç + Saqqal</div></div><input class="pinp" type="number" value="20" id="p-cb"><span class="punit">AZN</span></div>
+      <div class="prow"><div class="picon">&#128166;</div><div class="plabel"><div class="pn">Buxar Masaj</div></div><input class="pinp" type="number" value="8" id="p-st"><span class="punit">AZN</span></div>
+      <div class="prow"><div class="picon">&#128167;</div><div class="plabel"><div class="pn">Saç boyası</div></div><input class="pinp" type="number" value="30" id="p-cl"><span class="punit">AZN</span></div>
+      <div class="prow"><div class="picon">&#9999;</div><div class="plabel"><div class="pn">Qaş dizayn</div></div><input class="pinp" type="number" value="5" id="p-br"><span class="punit">AZN</span></div>
+    </div>
+    <div class="card">
+      <div class="sec-label">İş Saatları</div>
+      <div class="hrs-row"><div class="day-n">B.er</div><input class="hinp" type="time" value="09:00" id="h-we-s"><span class="hsep">–</span><input class="hinp" type="time" value="20:00" id="h-we-e"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="hrs-row"><div class="day-n">Çər</div><input class="hinp" type="time" value="09:00"><span class="hsep">–</span><input class="hinp" type="time" value="20:00"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="hrs-row"><div class="day-n">Cüm</div><input class="hinp" type="time" value="09:00"><span class="hsep">–</span><input class="hinp" type="time" value="20:00"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="hrs-row"><div class="day-n">Şən</div><input class="hinp" type="time" value="10:00"><span class="hsep">–</span><input class="hinp" type="time" value="18:00"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="hrs-row"><div class="day-n">Baz</div><input class="hinp" type="time" value="10:00"><span class="hsep">–</span><input class="hinp" type="time" value="16:00"><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+    </div>
+    <div class="px flex gap8">
+      <button class="btn btn-glass" style="margin:0;flex:0 0 auto;width:auto;padding:16px 20px" onclick="showStep(2)">&#8592;</button>
+      <button class="btn btn-gold" style="margin:0;flex:1" onclick="completeBarberReg()">Qeydiyyatı Tamamla &#10003;</button>
+    </div>
+    <div style="height:16px"></div>
+  </div>
+</div>
+
+<!-- ══════ BARBER DASHBOARD ══════ -->
+<div class="page" id="pg-dash">
+  <div class="topbar" style="justify-content:space-between">
+    <div class="topbar-title" id="dash-name">Paneliniz</div>
+    <div class="icon-btn btn-sm gold-sm" style="width:auto;padding:0 14px;border-radius:12px;font-size:13px" onclick="go('pg-welcome')">&#8592; Çıxış</div>
+  </div>
+  <div class="phero">
+    <div class="pava" id="dash-ava">&#128100;</div>
+    <div style="flex:1">
+      <div class="pname" id="dash-fullname">–</div>
+      <div class="ploc" id="dash-loc">–</div>
+      <div class="badge-row mt8">
+        <span class="badge bg">&#9733; Yeni</span>
+        <span class="badge bgr" id="dash-status">Aktiv</span>
+      </div>
+    </div>
+    <div class="toggle on" onclick="toggleActive(this)"></div>
+  </div>
+  <div class="sgrid">
+    <div class="sbox"><div class="snum" id="ds-appts">0</div><div class="slbl">Bu günkü zapis</div></div>
+    <div class="sbox"><div class="snum" style="color:var(--green)" id="ds-earn">0</div><div class="slbl">Günlük (AZN)</div></div>
+  </div>
+  <div style="padding:0 16px 14px;display:flex;gap:10px">
+    <button class="btn btn-gold" style="margin:0;flex:1;padding:13px" onclick="go('pg-dash-edit')">&#9998; Profil</button>
+    <button class="btn btn-glass" style="margin:0;flex:1;padding:13px" onclick="go('pg-prices')">&#128176; Qiymətlər</button>
+  </div>
+  <div class="card">
+    <div class="sec-label">Bu Günün Növbələri</div>
+    <div id="dash-queue">
+      <div class="empty"><div class="ei">&#128197;</div><p>Hələ ki zapis yoxdur</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ BARBER EDIT ══════ -->
+<div class="page" id="pg-dash-edit">
+  <div class="topbar">
+    <div class="icon-btn" onclick="go('pg-dash')">&#8592;</div>
+    <div class="topbar-title">Profil Redaktə</div>
+  </div>
+  <div class="tab-bar" id="edit-tabs">
+    <div class="tab on" onclick="editTab(this,'et-info')">Məlumat</div>
+    <div class="tab" onclick="editTab(this,'et-hours')">Saatlar</div>
+    <div class="tab" onclick="editTab(this,'et-svcs')">Xidmətlər</div>
+  </div>
+  <div id="et-info">
+    <div class="card">
+      <div class="frow mb16">
+        <div class="fgroup" style="margin-bottom:0"><label class="flabel">Ad</label><input class="finput" id="e-fn" type="text"></div>
+        <div class="fgroup" style="margin-bottom:0"><label class="flabel">Soyad</label><input class="finput" id="e-ln" type="text"></div>
+      </div>
+      <div class="fgroup"><label class="flabel">Telefon</label><input class="finput" id="e-ph" type="tel"></div>
+      <div class="fgroup"><label class="flabel">Salon adı</label><input class="finput" id="e-salon" type="text"></div>
+      <div class="fgroup"><label class="flabel">Rayon</label>
+        <select class="fselect" id="e-dist">
+          <option>Nizami</option><option>Nəsimi</option><option>Binəqədi</option>
+          <option>Sabunçu</option><option>Xəzər</option><option>Suraxanı</option>
+        </select>
+      </div>
+      <div class="fgroup" style="margin-bottom:0"><label class="flabel">Bio</label><textarea class="ftextarea" id="e-bio"></textarea></div>
+    </div>
+    <div class="px"><button class="btn btn-gold" onclick="updateBarberProfile()">Dəyişiklikləri Saxla &#10003;</button></div>
+  </div>
+  <div id="et-hours" class="hidden">
+    <div class="card">
+      <div class="sec-label">İş Saatları</div>
+      <div class="hrs-row"><div class="day-n">B.er</div><input class="hinp" type="time" value="09:00"><span class="hsep">–</span><input class="hinp" type="time" value="20:00"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="hrs-row"><div class="day-n">Çər</div><input class="hinp" type="time" value="09:00"><span class="hsep">–</span><input class="hinp" type="time" value="20:00"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="hrs-row"><div class="day-n">Cüm</div><input class="hinp" type="time" value="09:00"><span class="hsep">–</span><input class="hinp" type="time" value="20:00"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="hrs-row"><div class="day-n">Şən</div><input class="hinp" type="time" value="10:00"><span class="hsep">–</span><input class="hinp" type="time" value="18:00"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="hrs-row"><div class="day-n">Baz</div><input class="hinp" type="time" value="10:00"><span class="hsep">–</span><input class="hinp" type="time" value="16:00"><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+    </div>
+    <div class="px"><button class="btn btn-gold" onclick="showModal('Saatlar Yeniləndi','İş saatlarınız uğurla saxlandı.','&#128336;')">Saxla &#10003;</button></div>
+  </div>
+  <div id="et-svcs" class="hidden">
+    <div class="card">
+      <div class="sec-label">Aktiv Xidmətlər</div>
+      <div class="chips">
+        <div class="chip on" onclick="this.classList.toggle('on')">&#9986; Saç kəsimi</div>
+        <div class="chip on" onclick="this.classList.toggle('on')">&#128299; Saqqal</div>
+        <div class="chip on" onclick="this.classList.toggle('on')">&#128136; Fade</div>
+        <div class="chip" onclick="this.classList.toggle('on')">&#128166; Buxar</div>
+        <div class="chip" onclick="this.classList.toggle('on')">&#128167; Boya</div>
+        <div class="chip" onclick="this.classList.toggle('on')">&#9999; Qaş</div>
+        <div class="chip" onclick="this.classList.toggle('on')">&#9728; Uşaq</div>
+      </div>
+    </div>
+    <div class="px"><button class="btn btn-gold" onclick="showModal('Xidmətlər Yeniləndi','Seçimləriniz saxlandı.','&#9986;&#65039;')">Saxla &#10003;</button></div>
+  </div>
+</div>
+
+<!-- ══════ PRICES ══════ -->
+<div class="page" id="pg-prices">
+  <div class="topbar">
+    <div class="icon-btn" onclick="go('pg-dash')">&#8592;</div>
+    <div class="topbar-title">Qiymətlər</div>
+  </div>
+  <div class="pg-hero">
+    <div class="pg-badge">&#128176; Qiymət İdarəetməsi</div>
+    <h2>Qiymətlər</h2>
+    <p>Hər xidmət üçün öz qiymətinizi yazın</p>
+  </div>
+  <div class="card">
+    <div class="sec-label">Aktiv Xidmətlər</div>
+    <div class="prow"><div class="picon">&#9986;</div><div class="plabel"><div class="pn">Saç kəsimi</div><div class="pd">~30 dəq</div></div><input class="pinp" type="number" value="15" id="mp-hc"><span class="punit">AZN</span></div>
+    <div class="prow"><div class="picon">&#128299;</div><div class="plabel"><div class="pn">Saqqal</div><div class="pd">~20 dəq</div></div><input class="pinp" type="number" value="10" id="mp-bd"><span class="punit">AZN</span></div>
+    <div class="prow"><div class="picon">&#128136;</div><div class="plabel"><div class="pn">Saç + Saqqal</div><div class="pd">~50 dəq</div></div><input class="pinp" type="number" value="20" id="mp-cb"><span class="punit">AZN</span></div>
+    <div class="prow"><div class="picon">&#128166;</div><div class="plabel"><div class="pn">Buxar Masaj</div><div class="pd">~15 dəq</div></div><input class="pinp" type="number" value="8" id="mp-st"><span class="punit">AZN</span></div>
+    <div class="prow"><div class="picon">&#128167;</div><div class="plabel"><div class="pn">Saç boyası</div><div class="pd">~60 dəq</div></div><input class="pinp" type="number" value="30" id="mp-cl"><span class="punit">AZN</span></div>
+    <div class="prow"><div class="picon">&#9999;</div><div class="plabel"><div class="pn">Qaş dizayn</div><div class="pd">~15 dəq</div></div><input class="pinp" type="number" value="5" id="mp-br"><span class="punit">AZN</span></div>
+  </div>
+  <div class="px"><button class="btn btn-gold" onclick="savePrices()">Qiymətləri Saxla &#10003;</button></div>
+</div>
+
+<!-- ══════ MODAL ══════ -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal-sheet">
+    <div class="m-handle"></div>
+    <div class="m-icon" id="m-icon">&#127881;</div>
+    <h3 id="m-title">–</h3>
+    <p id="m-msg">–</p>
+    <button class="btn btn-gold" style="margin-bottom:0" onclick="closeModal()">&#10003; Bağla</button>
+  </div>
+</div>
+
+<!-- ══════ FIREBASE + APP JS ══════ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, query, orderBy, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+// ── YOUR FIREBASE CONFIG ──────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyBvePrXEyUynUBtPIzh9XlofL-SHordKsI",
+  authDomain: "mybarber-7ba0a.firebaseapp.com",
+  projectId: "mybarber-7ba0a",
+  storageBucket: "mybarber-7ba0a.firebasestorage.app",
+  messagingSenderId: "560697379122",
+  appId: "1:560697379122:web:7091d165c4e1a8b924ef2b"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+
+// ── STATE ────────────────────────────────────
+let curPage    = 'pg-welcome';
+let modalCb    = null;
+let bkSvc      = null;
+let bkTime     = null;
+let curBarber  = null; // active barber doc
+let curBarberId= null;
+let allBarbers = [];
+let catFilter  = 'all';
+
+// ── NAVIGATION ────────────────────────────────
+window.go = function(id) {
+  if (curPage === id) return;
+  const cur  = document.getElementById(curPage);
+  const next = document.getElementById(id);
+  if (!cur || !next) return;
+  cur.classList.add('out');
+  setTimeout(() => cur.classList.remove('show','out'), 260);
+  setTimeout(() => { next.classList.add('show'); next.scrollTop = 0; curPage = id; }, 140);
+};
+
+// ── MODAL ─────────────────────────────────────
+window.showModal = function(title, msg, icon, cb) {
+  document.getElementById('m-title').innerHTML = title;
+  document.getElementById('m-msg').innerHTML   = msg;
+  document.getElementById('m-icon').innerHTML  = icon || '&#127881;';
+  modalCb = cb || null;
+  document.getElementById('modal-bg').classList.add('show');
+};
+window.closeModal = function() {
+  document.getElementById('modal-bg').classList.remove('show');
+  if (modalCb) { const cb = modalCb; modalCb = null; setTimeout(cb, 320); }
+};
+document.getElementById('modal-bg').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal-bg')) window.closeModal();
+});
+
+// ── CLIENT REGISTER ───────────────────────────
+window.clientRegister = async function() {
+  const fn = document.getElementById('cl-fn').value.trim();
+  const ln = document.getElementById('cl-ln').value.trim();
+  const ph = document.getElementById('cl-ph').value.trim();
+  if (!fn || !ln) { showModal('Xəta','Ad və soyad daxil edin.','&#x26A0;&#xFE0F;'); return; }
+  if (!ph)        { showModal('Xəta','Telefon nömrəsi lazımdır.','&#x26A0;&#xFE0F;'); return; }
+  try {
+    await addDoc(collection(db,'clients'), {
+      firstName: fn, lastName: ln, phone: ph,
+      district: document.getElementById('cl-dist').value,
+      style: document.getElementById('cl-style').value,
+      createdAt: serverTimestamp()
+    });
+    showModal('Qeydiyyat Tamamlandı!', `Xoş gəldin, ${fn}! İndi bərbərləri tapa bilərsiniz.`, '&#127881;',
+      () => { loadBarbers(); go('pg-client-home'); });
+  } catch(e) {
+    showModal('Xəta', 'Qeydiyyat alınmadı. İnternet bağlantınızı yoxlayın.', '&#x26A0;&#xFE0F;');
+  }
+};
+
+// ── LOAD BARBERS ──────────────────────────────
+window.loadBarbers = async function() {
+  const list = document.getElementById('barber-list');
+  list.innerHTML = '<div class="loader"><div class="spin"></div>Yüklənir...</div>';
+  try {
+    const snap = await getDocs(query(collection(db,'barbers'), orderBy('createdAt','desc')));
+    allBarbers = [];
+    snap.forEach(d => allBarbers.push({ id: d.id, ...d.data() }));
+    renderBarbers(allBarbers);
+  } catch(e) {
+    list.innerHTML = '<div class="empty"><div class="ei">&#128268;</div><p>Yükləmə xətası. İnternet bağlantınızı yoxlayın.</p></div>';
+  }
+};
+
+function renderBarbers(list) {
+  const el = document.getElementById('barber-list');
+  if (!list.length) {
+    el.innerHTML = '<div class="empty"><div class="ei">&#9986;&#65039;</div><p>Hələ bərbər qeydiyyatdan keçməyib.</p></div>';
+    return;
+  }
+  el.innerHTML = list.map(b => `
+    <div class="bcard" onclick="openProfile('${b.id}')">
+      <div class="bava">${b.firstName ? b.firstName[0].toUpperCase() : '&#128100;'}</div>
+      <div class="binfo">
+        <div class="bname">${b.firstName || ''} ${b.lastName || ''}</div>
+        <div class="bloc">&#128205; ${b.district || 'Bakı'} rayonu</div>
+        <div class="btags">
+          <span class="tag tgr">&#9679; Aktiv</span>
+          <span class="tag tg">&#9733; Yeni</span>
+          <span class="tag tgy">${b.exp || '1+ il'}</span>
+        </div>
+      </div>
+      <span style="color:var(--muted);font-size:20px">&#8250;</span>
+    </div>
+  `).join('');
+}
+
+// ── SEARCH & FILTER ───────────────────────────
+window.filterBarbers = function(q) {
+  const filtered = allBarbers.filter(b => {
+    const name = `${b.firstName||''} ${b.lastName||''}`.toLowerCase();
+    const dist = (b.district || '').toLowerCase();
+    return name.includes(q.toLowerCase()) || dist.includes(q.toLowerCase());
+  });
+  renderBarbers(filtered);
+};
+
+window.setCat = function(el, cat) {
+  document.querySelectorAll('[onclick^="setCat"]').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  catFilter = cat;
+  if (cat === 'all') { renderBarbers(allBarbers); return; }
+  renderBarbers(allBarbers.filter(b => {
+    if (cat === 'boş') return true;
+    return (b.district || '') === cat;
+  }));
+};
+
+// ── OPEN BARBER PROFILE ───────────────────────
+window.openProfile = function(id) {
+  curBarberId = id;
+  curBarber   = allBarbers.find(b => b.id === id);
+  if (!curBarber) return;
+  const b = curBarber;
+  const name = `${b.firstName||''} ${b.lastName||''}`.trim();
+  document.getElementById('bpTitle').textContent  = name;
+  document.getElementById('bpName').textContent   = name;
+  document.getElementById('bpLoc').textContent    = (b.district||'Bakı') + ' rayonu';
+  document.getElementById('bpStatus').textContent = 'Aktiv';
+  document.getElementById('bpExp').textContent    = b.exp || '1+ il';
+  document.getElementById('bpAbout').textContent  = b.bio || 'Haqqında məlumat yoxdur.';
+  document.getElementById('bpSalon').textContent  = b.salon || '–';
+  document.getElementById('bpAddr').textContent   = b.address || '–';
+  document.getElementById('bpPhone').textContent  = b.phone || '–';
+  document.getElementById('bpIg').textContent     = b.instagram || '–';
+  document.getElementById('bk-name').textContent  = name;
+  document.getElementById('sum-bar').textContent  = name;
+
+  // Services
+  const svcs = b.prices || { haircut:15, beard:10, combo:20, steam:8 };
+  const svcMap = [
+    { icon:'&#9986;', name:'Saç kəsimi', key:'haircut', dur:'~30 dəq' },
+    { icon:'&#128299;', name:'Saqqal', key:'beard', dur:'~20 dəq' },
+    { icon:'&#128136;', name:'Saç + Saqqal', key:'combo', dur:'~50 dəq' },
+    { icon:'&#128166;', name:'Buxar Masaj', key:'steam', dur:'~15 dəq' },
+    { icon:'&#128167;', name:'Saç boyası', key:'color', dur:'~60 dəq' },
+    { icon:'&#9999;', name:'Qaş dizayn', key:'brow', dur:'~15 dəq' },
+  ];
+  document.getElementById('bpSvcList').innerHTML =
+    '<div class="sec-label">Qiymət Siyahısı</div>' +
+    svcMap.filter(s => svcs[s.key]).map(s => `
+      <div class="prow">
+        <div class="picon">${s.icon}</div>
+        <div class="plabel"><div class="pn">${s.name}</div><div class="pd">${s.dur}</div></div>
+        <b class="gold">${svcs[s.key]} AZN</b>
+      </div>
+    `).join('');
+
+  document.getElementById('bk-svcs').innerHTML = svcMap.filter(s => svcs[s.key]).map(s => `
+    <div class="prow" style="cursor:pointer" onclick="pickSvc(this,'${s.name}','${svcs[s.key]}')">
+      <div class="picon">${s.icon}</div>
+      <div class="plabel"><div class="pn">${s.name}</div><div class="pd">${s.dur}</div></div>
+      <b class="gold">${svcs[s.key]} AZN</b>
+    </div>
+  `).join('');
+
+  // Reset tabs
+  bpTab(document.querySelector('#pg-bprofile .tab'), 'bpt-port');
+  go('pg-bprofile');
+};
+
+// ── PROFILE TABS ──────────────────────────────
+window.bpTab = function(el, id) {
+  document.querySelectorAll('#pg-bprofile .tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  ['bpt-port','bpt-svc','bpt-rev','bpt-info'].forEach(t => {
+    document.getElementById(t)?.classList.toggle('hidden', t !== id);
+  });
+};
+
+window.editTab = function(el, id) {
+  document.querySelectorAll('#edit-tabs .tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  ['et-info','et-hours','et-svcs'].forEach(t => {
+    document.getElementById(t)?.classList.toggle('hidden', t !== id);
+  });
+};
+
+// ── BOOKING ───────────────────────────────────
+window.pickSvc = function(el, name, price) {
+  document.querySelectorAll('#bk-svcs .prow').forEach(r => { r.style.background=''; r.style.borderRadius=''; });
+  el.style.background = 'rgba(200,169,110,0.12)';
+  el.style.borderRadius = '12px';
+  bkSvc = { name, price };
+  updateSummary();
+};
+
+window.pickTime = function(el) {
+  document.querySelectorAll('.tslot:not(.taken)').forEach(s => s.classList.remove('picked'));
+  el.classList.add('picked');
+  bkTime = el.textContent;
+  updateSummary();
+};
+
+function updateSummary() {
+  const dateEl = document.getElementById('bk-date');
+  if (bkSvc && bkTime) {
+    document.getElementById('bk-summary').classList.remove('hidden');
+    document.getElementById('sum-svc').textContent  = bkSvc.name;
+    document.getElementById('sum-time').textContent = bkTime;
+    document.getElementById('sum-price').textContent = bkSvc.price + ' AZN';
+    if (dateEl.value) {
+      const d = new Date(dateEl.value);
+      document.getElementById('sum-date').textContent =
+        d.toLocaleDateString('az-AZ', { day:'numeric', month:'long', year:'numeric' });
+    }
+  }
+}
+document.getElementById('bk-date').addEventListener('change', updateSummary);
+
+window.confirmBooking = async function() {
+  if (!bkSvc)  { showModal('Xidmət seçin','Bir xidmət seçin.','&#x26A0;&#xFE0F;'); return; }
+  if (!bkTime) { showModal('Vaxt seçin','Bir vaxt seçin.','&#x26A0;&#xFE0F;'); return; }
+  try {
+    const barberName = `${curBarber?.firstName||''} ${curBarber?.lastName||''}`.trim();
+    await addDoc(collection(db,'bookings'), {
+      barberId:    curBarberId,
+      barberName,
+      service:     bkSvc.name,
+      price:       bkSvc.price,
+      time:        bkTime,
+      date:        document.getElementById('bk-date').value,
+      createdAt:   serverTimestamp()
+    });
+    showModal('Zapis Təsdiqləndi!',
+      `${bkSvc.name} üçün saat ${bkTime}-a yazıldınız. Ustanız sizi gözləyir!`,
+      '&#128197;', () => go('pg-client-home'));
+    bkSvc = null; bkTime = null;
+  } catch(e) {
+    showModal('Xəta','Zapis alınmadı. Yenidən cəhd edin.','&#x26A0;&#xFE0F;');
+  }
+};
+
+// ── BARBER REGISTER ───────────────────────────
+window.showStep = function(n) {
+  [1,2,3].forEach(i => document.getElementById('br-s'+i)?.classList.toggle('hidden', i!==n));
+  document.getElementById('pg-barber-reg').scrollTop = 0;
+};
+window.brStep2 = function() {
+  if (!document.getElementById('br-fn').value.trim()) {
+    showModal('Xəta','Adınızı daxil edin.','&#x26A0;&#xFE0F;'); return;
+  }
+  showStep(2);
+};
+window.brStep3 = function() { showStep(3); };
+
+window.completeBarberReg = async function() {
+  const fn    = document.getElementById('br-fn').value.trim();
+  const ln    = document.getElementById('br-ln').value.trim();
+  const ph    = document.getElementById('br-ph').value.trim();
+  const salon = document.getElementById('br-salon').value.trim();
+  const dist  = document.getElementById('br-dist').value;
+  if (!fn) { showModal('Xəta','Adınızı daxil edin.','&#x26A0;&#xFE0F;'); return; }
+  if (!ph) { showModal('Xəta','Telefon nömrəsi lazımdır.','&#x26A0;&#xFE0F;'); return; }
+  if (!dist) { showModal('Xəta','Rayon seçin.','&#x26A0;&#xFE0F;'); return; }
+
+  const prices = {
+    haircut: parseFloat(document.getElementById('p-hc').value) || 15,
+    beard:   parseFloat(document.getElementById('p-bd').value) || 10,
+    combo:   parseFloat(document.getElementById('p-cb').value) || 20,
+    steam:   parseFloat(document.getElementById('p-st').value) || 8,
+    color:   parseFloat(document.getElementById('p-cl').value) || 30,
+    brow:    parseFloat(document.getElementById('p-br').value) || 5,
+  };
+
+  const chips = Array.from(document.querySelectorAll('#svc-chips .chip.on')).map(c => c.textContent.trim());
+
+  try {
+    const docRef = await addDoc(collection(db,'barbers'), {
+      firstName: fn, lastName: ln, phone: ph,
+      instagram: document.getElementById('br-ig').value.trim(),
+      bio:       document.getElementById('br-bio').value.trim(),
+      salon, district: dist,
+      address:   document.getElementById('br-addr').value.trim(),
+      exp:       document.getElementById('br-exp').value,
+      prices, services: chips,
+      isActive: true,
+      createdAt: serverTimestamp()
+    });
+    curBarberId = docRef.id;
+
+    // Update dashboard
+    document.getElementById('dash-name').textContent     = fn + ' ' + ln;
+    document.getElementById('dash-fullname').textContent = fn + ' ' + ln;
+    document.getElementById('dash-loc').textContent      = dist + ' r. — ' + (salon || 'Salon');
+
+    showModal('Qeydiyyat Tamamlandı!',
+      'Profiliniz yaradıldı! Müştərilər indi sizi görə bilər.',
+      '&#9986;&#65039;', () => go('pg-dash'));
+  } catch(e) {
+    showModal('Xəta', 'Qeydiyyat alınmadı. İnternet bağlantınızı yoxlayın.', '&#x26A0;&#xFE0F;');
+  }
+};
+
+// ── BARBER PROFILE UPDATE ─────────────────────
+window.updateBarberProfile = async function() {
+  if (!curBarberId) { showModal('Xəta','Əvvəlcə qeydiyyatdan keçin.','&#x26A0;&#xFE0F;'); return; }
+  try {
+    await updateDoc(doc(db,'barbers',curBarberId), {
+      firstName: document.getElementById('e-fn').value.trim(),
+      lastName:  document.getElementById('e-ln').value.trim(),
+      phone:     document.getElementById('e-ph').value.trim(),
+      salon:     document.getElementById('e-salon').value.trim(),
+      district:  document.getElementById('e-dist').value,
+      bio:       document.getElementById('e-bio').value.trim(),
+    });
+    document.getElementById('dash-name').textContent =
+      document.getElementById('e-fn').value.trim() + ' ' + document.getElementById('e-ln').value.trim();
+    showModal('Profil Yeniləndi &#10003;','Dəyişiklikləriniz saxlandı.','&#128100;');
+  } catch(e) {
+    showModal('Xəta','Yeniləmə alınmadı.','&#x26A0;&#xFE0F;');
+  }
+};
+
+// ── SAVE PRICES ───────────────────────────────
+window.savePrices = async function() {
+  if (!curBarberId) { showModal('Xəta','Əvvəlcə qeydiyyatdan keçin.','&#x26A0;&#xFE0F;'); return; }
+  const prices = {
+    haircut: parseFloat(document.getElementById('mp-hc').value) || 0,
+    beard:   parseFloat(document.getElementById('mp-bd').value) || 0,
+    combo:   parseFloat(document.getElementById('mp-cb').value) || 0,
+    steam:   parseFloat(document.getElementById('mp-st').value) || 0,
+    color:   parseFloat(document.getElementById('mp-cl').value) || 0,
+    brow:    parseFloat(document.getElementById('mp-br').value) || 0,
+  };
+  try {
+    await updateDoc(doc(db,'barbers',curBarberId), { prices });
+    showModal('Qiymətlər Yeniləndi &#10003;','Müştərilər yeni qiymətləri görür.','&#128176;');
+  } catch(e) {
+    showModal('Xəta','Saxlama alınmadı.','&#x26A0;&#xFE0F;');
+  }
+};
+
+// ── DASHBOARD TOGGLE ──────────────────────────
+window.toggleActive = async function(el) {
+  el.classList.toggle('on');
+  const on = el.classList.contains('on');
+  document.getElementById('dash-status').textContent = on ? 'Aktiv' : 'Offline';
+  document.getElementById('dash-status').className   = on ? 'badge bgr' : 'badge bgy';
+  if (curBarberId) {
+    try { await updateDoc(doc(db,'barbers',curBarberId), { isActive: on }); } catch(e) {}
+  }
+};
+
+// ── PHOTO UPLOAD ──────────────────────────────
+window.uploadAva = function(input, circleId, emojiId) {
+  const file = input.files[0]; if (!file) return;
+  const r = new FileReader();
+  r.onload = e => {
+    const c = document.getElementById(circleId);
+    document.getElementById(emojiId).style.display = 'none';
+    let img = c.querySelector('img');
+    if (!img) { img = document.createElement('img'); c.insertBefore(img, c.firstChild); }
+    img.src = e.target.result;
+  };
+  r.readAsDataURL(file);
+};
+
+window.portPic = function(input, idx) {
+  const file = input.files[0]; if (!file) return;
+  const r = new FileReader();
+  r.onload = e => {
+    const cells = document.querySelectorAll('#port-grid .pcell');
+    if (!cells[idx]) return;
+    cells[idx].innerHTML = '';
+    cells[idx].classList.remove('add');
+    const img = document.createElement('img');
+    img.src = e.target.result;
+    cells[idx].appendChild(img);
+  };
+  r.readAsDataURL(file);
+};
+
+// ── SET DEFAULT DATE ──────────────────────────
+document.getElementById('bk-date').value = new Date().toISOString().split('T')[0];
+
+// ── AUTO-LOAD BARBERS on client home ─────────
+const obs = new MutationObserver(() => {
+  if (document.getElementById('pg-client-home').classList.contains('show')) {
+    if (!allBarbers.length) loadBarbers();
+  }
+});
+obs.observe(document.getElementById('pg-client-home'), { attributes: true, attributeFilter: ['class'] });
+</script>
+</body>
+</html>

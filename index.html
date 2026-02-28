@@ -18,7 +18,6 @@
 }
 html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased}
 
-/* BG */
 .bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:linear-gradient(135deg,#07090F,#0D1119)}
 .blob{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;animation:drift 22s ease-in-out infinite alternate}
 .b1{width:550px;height:550px;opacity:.17;background:radial-gradient(#4A1D96,transparent 70%);top:-180px;left:-120px}
@@ -26,40 +25,56 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .b3{width:300px;height:300px;opacity:.07;background:radial-gradient(#C8A96E,transparent 70%);top:38%;left:42%;animation-delay:-16s}
 @keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(55px,38px) scale(1.13)}}
 
-/* PAGES */
 .page{position:fixed;inset:0;z-index:10;overflow-y:auto;overflow-x:hidden;padding-bottom:90px;opacity:0;pointer-events:none;transform:translateY(26px) scale(0.986);transition:opacity .42s cubic-bezier(.4,0,.2,1),transform .42s cubic-bezier(.4,0,.2,1)}
 .page.show{opacity:1;pointer-events:all;transform:none}
 .page.out{opacity:0;transform:translateY(-22px) scale(0.99);transition:opacity .25s ease,transform .25s ease}
 
-/* TOPBAR */
 .topbar{position:sticky;top:0;z-index:50;padding:14px 18px 12px;background:linear-gradient(to bottom,rgba(7,9,15,.97) 60%,transparent);backdrop-filter:blur(14px);display:flex;align-items:center;gap:12px}
 .topbar-title{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;flex:1}
 .icon-btn{width:40px;height:40px;border-radius:50%;background:var(--glass2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:17px;color:var(--text);flex-shrink:0}
-.icon-btn:active{transform:scale(.88);background:var(--glass3)}
+.icon-btn:active{transform:scale(.88)}
+
+/* SPLASH */
+.splash{position:fixed;inset:0;z-index:999;background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .5s}
+.splash.hide{opacity:0;pointer-events:none}
+.splash-logo{width:80px;height:80px;border-radius:24px;background:linear-gradient(135deg,#C8A96E,#E8CC8A,#A07840);display:flex;align-items:center;justify-content:center;font-size:38px;animation:logoFloat 2s ease-in-out infinite}
+.splash p{color:var(--muted);font-size:14px}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
 /* WELCOME */
 .welcome-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 28px;text-align:center}
 .logo-ring{width:96px;height:96px;border-radius:28px;background:linear-gradient(135deg,#C8A96E,#E8CC8A,#A07840);display:flex;align-items:center;justify-content:center;font-size:46px;margin-bottom:32px;box-shadow:0 0 0 1px rgba(200,169,110,.3),0 20px 60px rgba(200,169,110,.28);animation:logoFloat 3.5s ease-in-out infinite}
-@keyframes logoFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-12px) rotate(1deg)}}
 .w-eyebrow{font-size:10px;letter-spacing:5px;font-weight:700;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
-.w-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,11vw,56px);font-weight:700;line-height:1.08;letter-spacing:-1.5px;margin-bottom:16px}
+.w-title{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,10vw,54px);font-weight:700;line-height:1.08;letter-spacing:-1.5px;margin-bottom:16px}
 .w-title em{font-style:italic;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.w-sub{color:var(--muted);font-size:15px;line-height:1.7;max-width:290px;margin-bottom:50px}
+.w-sub{color:var(--muted);font-size:15px;line-height:1.7;max-width:290px;margin-bottom:46px}
 .w-btns{width:100%;max-width:340px}
-.role-div{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.role-div{display:flex;align-items:center;gap:14px;margin-bottom:20px}
 .role-div span{color:var(--muted2);font-size:11px;letter-spacing:2px;white-space:nowrap}
 .role-div::before,.role-div::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--border),transparent)}
 
 /* BUTTONS */
-.btn{display:block;width:100%;padding:16px 24px;border:none;border-radius:16px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;cursor:pointer;letter-spacing:.3px;transition:all .22s;margin-bottom:12px;position:relative;overflow:hidden}
+.btn{display:block;width:100%;padding:16px 24px;border:none;border-radius:16px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;cursor:pointer;letter-spacing:.3px;transition:all .22s;margin-bottom:12px}
 .btn:active{transform:scale(.97)}
 .btn-gold{background:linear-gradient(135deg,#C8A96E,#E8CC8A,#B8924E);color:#1A0E00;box-shadow:0 8px 32px rgba(200,169,110,.32),inset 0 1px 0 rgba(255,255,255,.25)}
 .btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(200,169,110,.42)}
-.btn-glass{background:var(--glass2);border:1px solid var(--border3, rgba(255,255,255,.15));color:var(--text);backdrop-filter:blur(10px)}
+.btn-glass{background:var(--glass2);border:1px solid rgba(255,255,255,.15);color:var(--text)}
 .btn-glass:hover{background:var(--glass3)}
-.btn-sm{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:12px;background:var(--glass2);border:1px solid var(--border);color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
-.btn-sm:active{transform:scale(.93)}
-.btn-sm.gold-sm{background:rgba(200,169,110,.15);border-color:var(--border2);color:var(--gold)}
+.btn-red{background:rgba(224,80,80,.15);border:1px solid rgba(224,80,80,.3);color:var(--red)}
+
+/* AUTH PAGES */
+.auth-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px}
+.auth-logo{font-size:48px;margin-bottom:20px}
+.auth-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;margin-bottom:8px;text-align:center}
+.auth-sub{color:var(--muted);font-size:14px;margin-bottom:32px;text-align:center;line-height:1.6}
+.auth-box{width:100%;max-width:360px}
+.auth-switch{text-align:center;margin-top:16px;font-size:14px;color:var(--muted)}
+.auth-switch span{color:var(--gold);font-weight:600;cursor:pointer}
+
+/* ROLE BADGE on auth */
+.role-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:20px;margin-bottom:24px;font-size:13px;font-weight:600}
+.rb-client{background:rgba(200,169,110,.12);border:1px solid var(--border2);color:var(--gold)}
+.rb-barber{background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.3);color:#A78BFA}
 
 /* CARDS */
 .card{background:var(--glass);border:1px solid var(--border);border-radius:20px;backdrop-filter:blur(18px);padding:22px 20px;margin:0 16px 14px;box-shadow:0 8px 40px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.06)}
@@ -77,8 +92,11 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .fselect option{background:var(--dark2);color:var(--text)}
 .ftextarea{resize:none;height:90px;line-height:1.65}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.finput-pw{position:relative}
+.finput-pw input{padding-right:48px}
+.pw-eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--muted);font-size:18px;user-select:none}
 
-/* PAGE HERO */
+/* PG HERO */
 .pg-hero{padding:26px 20px 20px;text-align:center;background:linear-gradient(to bottom,rgba(200,169,110,.07),transparent);border-bottom:1px solid var(--border);margin-bottom:16px}
 .pg-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;margin-bottom:14px;background:rgba(200,169,110,.12);border:1px solid var(--border2);color:var(--gold);font-size:12px;font-weight:600;letter-spacing:1px}
 .pg-hero h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;margin-bottom:8px}
@@ -86,12 +104,12 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 
 /* STEPPER */
 .stepper{display:flex;align-items:center;justify-content:center;gap:6px;padding:0 20px 22px}
-.sdot{height:7px;border-radius:4px;background:var(--border);transition:all .32s ease}
+.sdot{height:7px;border-radius:4px;background:var(--border);transition:all .32s}
 .sdot.done{width:14px;background:rgba(200,169,110,.45)}
 .sdot.active{width:28px;background:var(--gold)}
 .sdot.pend{width:7px}
 
-/* AVATAR UPLOAD */
+/* AVATAR */
 .ava-upload{width:88px;height:88px;border-radius:50%;margin:0 auto 14px;border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .22s;background:var(--glass2);font-size:32px;overflow:hidden;position:relative}
 .ava-upload:hover{border-color:var(--gold);transform:scale(1.04)}
 .ava-upload img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
@@ -124,17 +142,15 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .punit{font-size:12px;color:var(--muted);width:28px}
 
 /* BARBER CARD */
-.bcard{display:flex;align-items:center;gap:14px;padding:16px;border-radius:20px;background:var(--glass2);border:1px solid var(--border);margin:0 16px 12px;cursor:pointer;transition:all .22s;backdrop-filter:blur(12px)}
+.bcard{display:flex;align-items:center;gap:14px;padding:16px;border-radius:20px;background:var(--glass2);border:1px solid var(--border);margin:0 16px 12px;cursor:pointer;transition:all .22s}
 .bcard:hover{border-color:var(--border2);transform:translateY(-1px);background:var(--glass3)}
 .bcard:active{transform:scale(.98)}
-.bava{width:56px;height:56px;border-radius:50%;flex-shrink:0;border:2px solid rgba(200,169,110,.3);background:linear-gradient(135deg,#3D1F6E,#6E1F1F);display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden}
+.bava{width:56px;height:56px;border-radius:50%;flex-shrink:0;border:2px solid rgba(200,169,110,.3);background:linear-gradient(135deg,#3D1F6E,#6E1F1F);display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden;font-weight:700;color:white}
 .bava img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .binfo{flex:1}
 .bname{font-weight:700;font-size:15px;margin-bottom:3px}
 .bloc{font-size:12px;color:var(--muted);margin-bottom:7px}
 .btags{display:flex;gap:6px;flex-wrap:wrap}
-
-/* TAGS */
 .tag{padding:3px 9px;border-radius:20px;font-size:10px;font-weight:600}
 .tg{background:rgba(200,169,110,.14);color:var(--gold);border:1px solid var(--border2)}
 .tgr{background:rgba(76,175,136,.14);color:var(--green);border:1px solid rgba(76,175,136,.25)}
@@ -142,7 +158,7 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 
 /* PROFILE HERO */
 .phero{background:linear-gradient(135deg,rgba(200,169,110,.09),rgba(124,58,237,.07));border-bottom:1px solid var(--border2);padding:26px 20px 20px;margin-bottom:16px;display:flex;gap:16px;align-items:flex-start}
-.pava{width:76px;height:76px;border-radius:50%;flex-shrink:0;border:2px solid var(--gold);background:linear-gradient(135deg,#3D1F6E,#6E1F1F);display:flex;align-items:center;justify-content:center;font-size:30px;overflow:hidden;box-shadow:0 0 0 4px rgba(200,169,110,.12)}
+.pava{width:76px;height:76px;border-radius:50%;flex-shrink:0;border:2px solid var(--gold);background:linear-gradient(135deg,#3D1F6E,#6E1F1F);display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden;box-shadow:0 0 0 4px rgba(200,169,110,.12);font-weight:700;color:white}
 .pava img{width:100%;height:100%;object-fit:cover}
 .pname{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:3px}
 .ploc{color:var(--muted);font-size:13px;margin-bottom:10px}
@@ -158,9 +174,8 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .tab.on{background:linear-gradient(135deg,#C8A96E,#E8CC8A);color:#1A0E00;font-weight:700;box-shadow:0 4px 14px rgba(200,169,110,.28)}
 
 /* PORTFOLIO */
-.port-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
-.port-item{aspect-ratio:1;border-radius:14px;background:var(--glass2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden;cursor:pointer;transition:all .2s}
-.port-item:hover{border-color:var(--gold);transform:scale(1.03)}
+.port-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.port-item{aspect-ratio:1;border-radius:14px;background:var(--glass2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden}
 .port-item img{width:100%;height:100%;object-fit:cover}
 
 /* REVIEWS */
@@ -168,7 +183,7 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .review:last-child{border-bottom:none}
 .rev-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .rev-name{font-weight:600;font-size:14px}
-.stars{color:var(--gold);font-size:13px;letter-spacing:1px}
+.stars{color:var(--gold);font-size:13px}
 .rev-text{font-size:13px;color:var(--text2);line-height:1.55}
 .rev-date{font-size:11px;color:var(--muted);margin-top:4px}
 
@@ -180,10 +195,10 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .tslot.taken{opacity:.3;cursor:not-allowed;pointer-events:none}
 
 /* HRS */
-.hrs-row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px}
+.hrs-row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--border)}
 .hrs-row:last-child{border-bottom:none}
 .day-n{width:38px;color:var(--muted);font-size:12px;font-weight:600}
-.hinp{width:74px;padding:7px 10px;background:var(--glass2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.hinp{width:74px;padding:7px 10px;background:var(--glass2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;-webkit-appearance:none}
 .hinp:focus{border-color:var(--gold)}
 .hsep{color:var(--muted);font-size:12px;font-weight:600}
 
@@ -209,10 +224,6 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .sbox{background:var(--glass2);border:1px solid var(--border);border-radius:18px;padding:18px 16px;text-align:center}
 .snum{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:var(--gold);line-height:1}
 .slbl{font-size:11px;color:var(--muted);margin-top:4px}
-.srow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.smini{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center}
-.smini .sn{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--gold)}
-.smini .sl{font-size:10px;color:var(--muted);margin-top:3px}
 
 /* SUMMARY */
 .sumbox{background:rgba(200,169,110,.06);border:1px solid var(--border2);border-radius:16px;padding:16px 18px;margin:14px 0}
@@ -225,7 +236,7 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .searchbar{margin:0 16px 14px;position:relative}
 .searchbar input{width:100%;padding:13px 16px 13px 44px;background:var(--glass2);border:1px solid var(--border);border-radius:14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:all .2s}
 .searchbar input::placeholder{color:var(--muted2)}
-.searchbar input:focus{border-color:var(--gold);background:rgba(200,169,110,.05);box-shadow:0 0 0 3px rgba(200,169,110,.1)}
+.searchbar input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,169,110,.1)}
 .si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:17px;pointer-events:none}
 
 /* MODAL */
@@ -238,21 +249,18 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .modal-sheet h3{font-family:'Cormorant Garamond',serif;font-size:28px;margin-bottom:12px}
 .modal-sheet p{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:28px}
 
-/* LOADING */
+/* LOADER */
 .loader{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;gap:12px;color:var(--muted);font-size:14px}
 .spin{width:32px;height:32px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* EMPTY STATE */
 .empty{text-align:center;padding:50px 20px;color:var(--muted)}
 .empty .ei{font-size:48px;margin-bottom:12px}
 .empty p{font-size:14px;line-height:1.6}
 
-/* SCROLLBAR */
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
 
-/* UTILS */
 .px{padding-left:16px;padding-right:16px}
 .mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}
 .mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mb16{margin-bottom:16px}
@@ -272,8 +280,14 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
   <div class="blob b3"></div>
 </div>
 
+<!-- SPLASH SCREEN -->
+<div class="splash" id="splash">
+  <div class="splash-logo">&#9986;&#65039;</div>
+  <p>Yüklənir...</p>
+</div>
+
 <!-- ══════ WELCOME ══════ -->
-<div class="page show" id="pg-welcome">
+<div class="page" id="pg-welcome">
   <div class="welcome-wrap">
     <div class="logo-ring">&#9986;&#65039;</div>
     <div class="w-eyebrow">MyBarber Studio</div>
@@ -281,69 +295,148 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
     <p class="w-sub">Bərbərlər qeydiyyatdan keçir, müştərilər onları tapır. Real vaxtda.</p>
     <div class="w-btns">
       <div class="role-div"><span>KİMSİNİZ?</span></div>
-      <button class="btn btn-gold" onclick="go('pg-client-reg')">&#128100; Müştəriyəm</button>
-      <button class="btn btn-glass" onclick="go('pg-barber-reg')">&#9986;&#65039; Bərbərəm</button>
+      <button class="btn btn-gold" onclick="setRole('client'); go('pg-client-auth')">&#128100; Müştəriyəm</button>
+      <button class="btn btn-glass" onclick="setRole('barber'); go('pg-barber-auth')">&#9986;&#65039; Bərbərəm</button>
     </div>
   </div>
 </div>
 
-<!-- ══════ CLIENT REGISTER ══════ -->
-<div class="page" id="pg-client-reg">
-  <div class="topbar">
-    <div class="icon-btn" onclick="go('pg-welcome')">&#8592;</div>
-    <div class="topbar-title">Müştəri Qeydiyyatı</div>
-  </div>
-  <div class="pg-hero">
-    <div class="pg-badge">&#128196; Yeni Hesab</div>
-    <h2>Xoş Gəldiniz!</h2>
-    <p>Bir neçə saniyəyə qeydiyyatdan keçin</p>
-  </div>
-  <div class="card">
-    <div class="sec-label">Şəxsi Məlumat</div>
-    <div class="frow mb16">
-      <div class="fgroup" style="margin-bottom:0">
-        <label class="flabel">Ad</label>
-        <input class="finput" id="cl-fn" type="text" placeholder="Adınız">
+<!-- ══════ CLIENT AUTH ══════ -->
+<div class="page" id="pg-client-auth">
+  <div class="auth-wrap">
+    <div class="auth-logo">&#128100;</div>
+    <div class="role-badge rb-client">&#128100; Müştəri Hesabı</div>
+    <h2 class="auth-title" id="cl-auth-title">Giriş Et</h2>
+    <p class="auth-sub" id="cl-auth-sub">Hesabınıza daxil olun</p>
+    <div class="auth-box">
+      <!-- LOGIN -->
+      <div id="cl-login">
+        <div class="fgroup">
+          <label class="flabel">E-poçt</label>
+          <input class="finput" id="cl-l-email" type="email" placeholder="email@example.com">
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Şifrə</label>
+          <div class="finput-pw">
+            <input class="finput" id="cl-l-pass" type="password" placeholder="Şifrəniz">
+            <span class="pw-eye" onclick="togglePw('cl-l-pass',this)">&#128065;</span>
+          </div>
+        </div>
+        <button class="btn btn-gold" onclick="clientLogin()">Daxil Ol &#8594;</button>
+        <div class="auth-switch">Hesabınız yoxdur? <span onclick="switchAuth('cl-login','cl-reg','cl-auth-title','cl-auth-sub','Qeydiyyat','Yeni hesab yaradın')">Qeydiyyat</span></div>
       </div>
-      <div class="fgroup" style="margin-bottom:0">
-        <label class="flabel">Soyad</label>
-        <input class="finput" id="cl-ln" type="text" placeholder="Soyadınız">
+      <!-- REGISTER -->
+      <div id="cl-reg" class="hidden">
+        <div class="frow mb16">
+          <div class="fgroup" style="margin-bottom:0"><label class="flabel">Ad</label><input class="finput" id="cl-r-fn" type="text" placeholder="Adınız"></div>
+          <div class="fgroup" style="margin-bottom:0"><label class="flabel">Soyad</label><input class="finput" id="cl-r-ln" type="text" placeholder="Soyadınız"></div>
+        </div>
+        <div class="fgroup"><label class="flabel">Telefon</label><input class="finput" id="cl-r-ph" type="tel" placeholder="+994 50 XXX XX XX"></div>
+        <div class="fgroup"><label class="flabel">E-poçt</label><input class="finput" id="cl-r-email" type="email" placeholder="email@example.com"></div>
+        <div class="fgroup">
+          <label class="flabel">Şifrə</label>
+          <div class="finput-pw">
+            <input class="finput" id="cl-r-pass" type="password" placeholder="Minimum 6 simvol">
+            <span class="pw-eye" onclick="togglePw('cl-r-pass',this)">&#128065;</span>
+          </div>
+        </div>
+        <div class="fgroup"><label class="flabel">Rayon</label>
+          <select class="fselect" id="cl-r-dist">
+            <option value="">Seçin...</option>
+            <option>Nizami</option><option>Nəsimi</option><option>Binəqədi</option>
+            <option>Sabunçu</option><option>Xəzər</option><option>Suraxanı</option><option>Abşeron</option>
+          </select>
+        </div>
+        <button class="btn btn-gold" onclick="clientRegister()">Qeydiyyatdan Keç &#10003;</button>
+        <div class="auth-switch">Artıq hesabınız var? <span onclick="switchAuth('cl-reg','cl-login','cl-auth-title','cl-auth-sub','Giriş Et','Hesabınıza daxil olun')">Giriş Et</span></div>
       </div>
-    </div>
-    <div class="fgroup">
-      <label class="flabel">Telefon Nömrəsi</label>
-      <input class="finput" id="cl-ph" type="tel" placeholder="+994 50 XXX XX XX">
-    </div>
-    <div class="fgroup">
-      <label class="flabel">Rayon</label>
-      <select class="fselect" id="cl-dist">
-        <option value="">Seçin...</option>
-        <option>Nizami</option><option>Nəsimi</option><option>Binəqədi</option>
-        <option>Sabunçu</option><option>Xəzər</option><option>Suraxanı</option>
-        <option>Abşeron</option><option>Qaradağ</option>
-      </select>
-    </div>
-    <div class="fgroup" style="margin-bottom:0">
-      <label class="flabel">Sevimli Saç Tərzi</label>
-      <select class="fselect" id="cl-style">
-        <option value="">Seçin...</option>
-        <option>Klassik kəsim</option><option>Fade / Gradient</option>
-        <option>Pompadour</option><option>Undercut</option><option>Buzz Cut</option>
-      </select>
+      <button class="btn btn-glass" style="margin-top:8px" onclick="go('pg-welcome')">&#8592; Geri</button>
     </div>
   </div>
-  <div class="px">
-    <button class="btn btn-gold" onclick="clientRegister()">Qeydiyyatı Tamamla &#10003;</button>
-    <p class="small muted center mt8">Artıq hesabınız var? <span class="gold fw6" style="cursor:pointer" onclick="go('pg-client-home')">Bərbər Tap &#8594;</span></p>
+</div>
+
+<!-- ══════ BARBER AUTH ══════ -->
+<div class="page" id="pg-barber-auth">
+  <div class="auth-wrap">
+    <div class="auth-logo">&#9986;&#65039;</div>
+    <div class="role-badge rb-barber">&#9986;&#65039; Bərbər Hesabı</div>
+    <h2 class="auth-title" id="br-auth-title">Giriş Et</h2>
+    <p class="auth-sub" id="br-auth-sub">Bərbər panelinizə daxil olun</p>
+    <div class="auth-box">
+      <!-- LOGIN -->
+      <div id="br-login">
+        <div class="fgroup">
+          <label class="flabel">E-poçt</label>
+          <input class="finput" id="br-l-email" type="email" placeholder="email@example.com">
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Şifrə</label>
+          <div class="finput-pw">
+            <input class="finput" id="br-l-pass" type="password" placeholder="Şifrəniz">
+            <span class="pw-eye" onclick="togglePw('br-l-pass',this)">&#128065;</span>
+          </div>
+        </div>
+        <button class="btn btn-gold" onclick="barberLogin()">Daxil Ol &#8594;</button>
+        <div class="auth-switch">Hələ qeydiyyatınız yoxdur? <span onclick="switchAuth('br-login','br-reg','br-auth-title','br-auth-sub','Qeydiyyat','Yeni bərbər hesabı yaradın')">Qeydiyyat</span></div>
+      </div>
+      <!-- REGISTER -->
+      <div id="br-reg" class="hidden">
+        <div class="frow mb16">
+          <div class="fgroup" style="margin-bottom:0"><label class="flabel">Ad</label><input class="finput" id="br-fn" type="text" placeholder="Adınız"></div>
+          <div class="fgroup" style="margin-bottom:0"><label class="flabel">Soyad</label><input class="finput" id="br-ln" type="text" placeholder="Soyadınız"></div>
+        </div>
+        <div class="fgroup"><label class="flabel">Telefon</label><input class="finput" id="br-ph" type="tel" placeholder="+994 50 XXX XX XX"></div>
+        <div class="fgroup"><label class="flabel">E-poçt</label><input class="finput" id="br-email" type="email" placeholder="email@example.com"></div>
+        <div class="fgroup">
+          <label class="flabel">Şifrə</label>
+          <div class="finput-pw">
+            <input class="finput" id="br-pass" type="password" placeholder="Minimum 6 simvol">
+            <span class="pw-eye" onclick="togglePw('br-pass',this)">&#128065;</span>
+          </div>
+        </div>
+        <div class="fgroup"><label class="flabel">Instagram (könüllü)</label><input class="finput" id="br-ig" type="text" placeholder="@hesabınız"></div>
+        <div class="fgroup"><label class="flabel">Bio</label><textarea class="ftextarea" id="br-bio" placeholder="Özünüz haqqında qısa məlumat..."></textarea></div>
+        <div class="fgroup"><label class="flabel">Salon adı</label><input class="finput" id="br-salon" type="text" placeholder="Elite Barber Salon"></div>
+        <div class="fgroup"><label class="flabel">Rayon</label>
+          <select class="fselect" id="br-dist">
+            <option value="">Seçin...</option>
+            <option>Nizami</option><option>Nəsimi</option><option>Binəqədi</option>
+            <option>Sabunçu</option><option>Xəzər</option><option>Suraxanı</option><option>Abşeron</option>
+          </select>
+        </div>
+        <div class="fgroup"><label class="flabel">Dəqiq Ünvan</label><input class="finput" id="br-addr" type="text" placeholder="Küçə, ev nömrəsi..."></div>
+        <div class="fgroup"><label class="flabel">Təcrübə</label>
+          <select class="fselect" id="br-exp">
+            <option>1-2 il</option><option>3-5 il</option><option>5-10 il</option><option>10+ il</option><option>15+ il</option>
+          </select>
+        </div>
+        <div class="fgroup" style="margin-bottom:0">
+          <label class="flabel">Xidmətlər</label>
+          <div class="chips" style="margin-top:8px" id="reg-chips">
+            <div class="chip on" onclick="this.classList.toggle('on')">&#9986; Saç kəsimi</div>
+            <div class="chip on" onclick="this.classList.toggle('on')">&#128299; Saqqal</div>
+            <div class="chip on" onclick="this.classList.toggle('on')">&#128136; Fade</div>
+            <div class="chip" onclick="this.classList.toggle('on')">&#128166; Buxar Masaj</div>
+            <div class="chip" onclick="this.classList.toggle('on')">&#128167; Saç boyası</div>
+            <div class="chip" onclick="this.classList.toggle('on')">&#9999; Qaş dizayn</div>
+            <div class="chip" onclick="this.classList.toggle('on')">&#9728; Uşaq kəsimi</div>
+            <div class="chip" onclick="this.classList.toggle('on')">&#128165; Hot Towel</div>
+          </div>
+        </div>
+        <div style="height:20px"></div>
+        <button class="btn btn-gold" onclick="barberRegister()">Qeydiyyatdan Keç &#10003;</button>
+        <div class="auth-switch">Artıq hesabınız var? <span onclick="switchAuth('br-reg','br-login','br-auth-title','br-auth-sub','Giriş Et','Bərbər panelinizə daxil olun')">Giriş Et</span></div>
+      </div>
+      <button class="btn btn-glass" style="margin-top:8px" onclick="go('pg-welcome')">&#8592; Geri</button>
+    </div>
   </div>
 </div>
 
 <!-- ══════ CLIENT HOME ══════ -->
 <div class="page" id="pg-client-home">
   <div class="topbar">
-    <div class="icon-btn" onclick="go('pg-welcome')">&#8592;</div>
     <div class="topbar-title">Bərbərlər</div>
-    <div class="icon-btn" onclick="loadBarbers()" title="Yenilə">&#8635;</div>
+    <div class="icon-btn" onclick="signOutUser()" title="Çıxış" style="font-size:14px">&#x23FB;</div>
   </div>
   <div class="searchbar">
     <span class="si">&#128269;</span>
@@ -351,30 +444,30 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
   </div>
   <div style="padding:0 16px 14px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none">
     <div class="chip on" onclick="setCat(this,'all')">Hamısı</div>
-    <div class="chip" onclick="setCat(this,'boş')">Boş var</div>
     <div class="chip" onclick="setCat(this,'Nizami')">Nizami</div>
     <div class="chip" onclick="setCat(this,'Nəsimi')">Nəsimi</div>
     <div class="chip" onclick="setCat(this,'Binəqədi')">Binəqədi</div>
+    <div class="chip" onclick="setCat(this,'Sabunçu')">Sabunçu</div>
   </div>
   <div id="barber-list">
     <div class="loader"><div class="spin"></div>Bərbərlər yüklənir...</div>
   </div>
 </div>
 
-<!-- ══════ BARBER PROFILE (client view) ══════ -->
+<!-- ══════ BARBER PROFILE ══════ -->
 <div class="page" id="pg-bprofile">
   <div class="topbar">
     <div class="icon-btn" onclick="go('pg-client-home')">&#8592;</div>
     <div class="topbar-title" id="bpTitle">Profil</div>
   </div>
   <div class="phero">
-    <div class="pava" id="bpAva">&#128100;</div>
+    <div class="pava" id="bpAva">?</div>
     <div>
       <div class="pname" id="bpName">–</div>
       <div class="ploc" id="bpLoc">–</div>
       <div class="badge-row">
-        <span class="badge bg" id="bpRating">&#9733; –</span>
-        <span class="badge bgr" id="bpStatus">–</span>
+        <span class="badge bg">&#9733; Yeni</span>
+        <span class="badge bgr">Aktiv</span>
         <span class="badge bgy" id="bpExp">–</span>
       </div>
     </div>
@@ -385,10 +478,9 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
     <div class="tab" onclick="bpTab(this,'bpt-rev')">Rəylər</div>
     <div class="tab" onclick="bpTab(this,'bpt-info')">Məlumat</div>
   </div>
-  <!-- Portfolio -->
   <div id="bpt-port">
     <div style="padding:0 16px">
-      <div class="port-grid" id="bpPortGrid">
+      <div class="port-grid">
         <div class="port-item" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">&#9986;</div>
         <div class="port-item" style="background:linear-gradient(135deg,#0f3460,#1D2F5C)">&#128136;</div>
         <div class="port-item" style="background:linear-gradient(135deg,#1a0a0a,#3d1515)">&#129491;</div>
@@ -399,25 +491,12 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
       <div class="sec-label">Haqqında</div>
       <p class="small lh t2" id="bpAbout">–</p>
     </div>
-    <div class="card">
-      <div class="sec-label">İş Saatları</div>
-      <div class="flex-between small" style="padding:8px 0;border-bottom:1px solid var(--border)">
-        <span class="muted">B.ertəsi – Cümə</span><span class="gold fw6" id="bpHrs1">09:00 – 20:00</span>
-      </div>
-      <div class="flex-between small" style="padding:8px 0">
-        <span class="muted">Şənbə – Bazar</span><span class="gold fw6" id="bpHrs2">10:00 – 18:00</span>
-      </div>
-    </div>
     <div class="px"><button class="btn btn-gold" onclick="go('pg-booking')">Zapis Ol &#128197;</button></div>
   </div>
-  <!-- Services -->
   <div id="bpt-svc" class="hidden">
-    <div class="card" id="bpSvcList">
-      <div class="sec-label">Qiymət Siyahısı</div>
-    </div>
+    <div class="card" id="bpSvcList"><div class="sec-label">Qiymət Siyahısı</div></div>
     <div class="px"><button class="btn btn-gold" onclick="go('pg-booking')">Zapis Ol &#128197;</button></div>
   </div>
-  <!-- Reviews -->
   <div id="bpt-rev" class="hidden">
     <div class="card">
       <div class="sec-label">Müştəri Rəyləri</div>
@@ -431,20 +510,14 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
         <p class="rev-text">Fade-i Bakıda ən yaxşı bu usta edir.</p>
         <div class="rev-date">1 həftə əvvəl</div>
       </div>
-      <div class="review">
-        <div class="rev-top"><span class="rev-name">Tural H.</span><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div>
-        <p class="rev-text">Salon çox səliqəli, xidmət keyfiyyətlidir.</p>
-        <div class="rev-date">2 həftə əvvəl</div>
-      </div>
     </div>
   </div>
-  <!-- Info -->
   <div id="bpt-info" class="hidden">
     <div class="card">
       <div class="sec-label">Salon Məlumatı</div>
       <div class="flex" style="gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
         <span style="font-size:20px">&#128205;</span>
-        <div><div class="small fw6" id="bpSalon">–</div><div class="xs muted mt4" id="bpAddr">–</div></div>
+        <div><div class="small fw6" id="bpSalon">–</div><div class="xs muted mt8" id="bpAddr">–</div></div>
       </div>
       <div class="flex" style="gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
         <span style="font-size:20px">&#128222;</span>
@@ -481,8 +554,7 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
   <div class="card">
     <div class="sec-label">Vaxt Seçin</div>
     <div class="tgrid">
-      <div class="tslot taken">09:00</div>
-      <div class="tslot taken">09:30</div>
+      <div class="tslot taken">09:00</div><div class="tslot taken">09:30</div>
       <div class="tslot" onclick="pickTime(this)">10:00</div>
       <div class="tslot" onclick="pickTime(this)">10:30</div>
       <div class="tslot" onclick="pickTime(this)">11:00</div>
@@ -505,152 +577,17 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
       <div class="sum-row"><span class="sl">Ümumi</span><span class="sum-total" id="sum-price">–</span></div>
     </div>
   </div>
-  <div class="px">
-    <button class="btn btn-gold" onclick="confirmBooking()">Zapisi Təsdiqlə &#10003;</button>
-  </div>
-</div>
-
-<!-- ══════ BARBER REGISTER — STEP 1 ══════ -->
-<div class="page" id="pg-barber-reg">
-  <div class="topbar">
-    <div class="icon-btn" onclick="go('pg-welcome')">&#8592;</div>
-    <div class="topbar-title">Bərbər Qeydiyyatı</div>
-  </div>
-
-  <!-- STEP 1 -->
-  <div id="br-s1">
-    <div class="pg-hero">
-      <div class="pg-badge">&#128196; Addım 1 / 3</div>
-      <h2>Şəxsi Məlumat</h2>
-      <p>Ad, nömrə və salon məlumatlarınızı daxil edin</p>
-    </div>
-    <div class="stepper">
-      <div class="sdot active"></div><div class="sdot pend"></div><div class="sdot pend"></div>
-    </div>
-    <div class="card">
-      <div class="sec-label">Profil Şəkli</div>
-      <div class="ava-upload" id="br-ava" onclick="document.getElementById('br-photo').click()">
-        <span id="br-ava-icon">&#128100;</span>
-        <div class="ava-overlay">&#9998;</div>
-      </div>
-      <input type="file" id="br-photo" accept="image/*" style="display:none" onchange="uploadAva(this,'br-ava','br-ava-icon')">
-      <p class="small muted center mt4 mb16">Profil şəklinizi yükləyin</p>
-      <div class="frow mb16">
-        <div class="fgroup" style="margin-bottom:0"><label class="flabel">Ad</label><input class="finput" id="br-fn" type="text" placeholder="Adınız"></div>
-        <div class="fgroup" style="margin-bottom:0"><label class="flabel">Soyad</label><input class="finput" id="br-ln" type="text" placeholder="Soyadınız"></div>
-      </div>
-      <div class="fgroup"><label class="flabel">Telefon</label><input class="finput" id="br-ph" type="tel" placeholder="+994 50 XXX XX XX"></div>
-      <div class="fgroup"><label class="flabel">Instagram (könüllü)</label><input class="finput" id="br-ig" type="text" placeholder="@hesabınız"></div>
-      <div class="fgroup" style="margin-bottom:0"><label class="flabel">Haqqında</label><textarea class="ftextarea" id="br-bio" placeholder="Özünüz haqqında qısa məlumat..."></textarea></div>
-    </div>
-    <div class="card">
-      <div class="sec-label">İş Məkanı</div>
-      <div class="fgroup"><label class="flabel">Salon adı</label><input class="finput" id="br-salon" type="text" placeholder="Elite Barber Salon"></div>
-      <div class="fgroup"><label class="flabel">Rayon</label>
-        <select class="fselect" id="br-dist">
-          <option value="">Seçin...</option>
-          <option>Nizami</option><option>Nəsimi</option><option>Binəqədi</option>
-          <option>Sabunçu</option><option>Xəzər</option><option>Suraxanı</option><option>Abşeron</option>
-        </select>
-      </div>
-      <div class="fgroup"><label class="flabel">Dəqiq Ünvan</label><input class="finput" id="br-addr" type="text" placeholder="Küçə, ev nömrəsi..."></div>
-      <div class="fgroup" style="margin-bottom:0"><label class="flabel">Təcrübə</label>
-        <select class="fselect" id="br-exp">
-          <option>1-2 il</option><option>3-5 il</option><option>5-10 il</option><option>10+ il</option><option>15+ il</option>
-        </select>
-      </div>
-    </div>
-    <div class="px"><button class="btn btn-gold" onclick="brStep2()">Davam Et &#8594;</button></div>
-  </div>
-
-  <!-- STEP 2 -->
-  <div id="br-s2" class="hidden">
-    <div class="pg-hero">
-      <div class="pg-badge">&#128247; Addım 2 / 3</div>
-      <h2>Xidmətlər & Portfolio</h2>
-      <p>Kateqoriyaları seçin, şəkil əlavə edin</p>
-    </div>
-    <div class="stepper">
-      <div class="sdot done"></div><div class="sdot active"></div><div class="sdot pend"></div>
-    </div>
-    <div class="card">
-      <div class="sec-label">Edə Bildiyiniz Xidmətlər</div>
-      <div class="chips" id="svc-chips">
-        <div class="chip on" onclick="this.classList.toggle('on')">&#9986; Saç kəsimi</div>
-        <div class="chip on" onclick="this.classList.toggle('on')">&#128299; Saqqal</div>
-        <div class="chip on" onclick="this.classList.toggle('on')">&#128136; Fade</div>
-        <div class="chip" onclick="this.classList.toggle('on')">&#128166; Buxar Masaj</div>
-        <div class="chip" onclick="this.classList.toggle('on')">&#128167; Saç boyası</div>
-        <div class="chip" onclick="this.classList.toggle('on')">&#9999; Qaş dizayn</div>
-        <div class="chip" onclick="this.classList.toggle('on')">&#128293; Keratin</div>
-        <div class="chip" onclick="this.classList.toggle('on')">&#9813; Pompadour</div>
-        <div class="chip" onclick="this.classList.toggle('on')">&#9728; Uşaq kəsimi</div>
-        <div class="chip" onclick="this.classList.toggle('on')">&#128165; Hot Towel</div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="sec-label">Portfolio Şəkilləri</div>
-      <div class="pgrid" id="port-grid">
-        <div class="pcell add" onclick="document.getElementById('pg1').click()">+</div>
-        <div class="pcell add" onclick="document.getElementById('pg2').click()">+</div>
-        <div class="pcell add" onclick="document.getElementById('pg3').click()">+</div>
-        <div class="pcell add" onclick="document.getElementById('pg4').click()">+</div>
-      </div>
-      <input type="file" id="pg1" accept="image/*" style="display:none" onchange="portPic(this,0)">
-      <input type="file" id="pg2" accept="image/*" style="display:none" onchange="portPic(this,1)">
-      <input type="file" id="pg3" accept="image/*" style="display:none" onchange="portPic(this,2)">
-      <input type="file" id="pg4" accept="image/*" style="display:none" onchange="portPic(this,3)">
-    </div>
-    <div class="px flex gap8">
-      <button class="btn btn-glass" style="margin:0;flex:0 0 auto;width:auto;padding:16px 20px" onclick="showStep(1)">&#8592;</button>
-      <button class="btn btn-gold" style="margin:0;flex:1" onclick="brStep3()">Davam Et &#8594;</button>
-    </div>
-    <div style="height:16px"></div>
-  </div>
-
-  <!-- STEP 3 -->
-  <div id="br-s3" class="hidden">
-    <div class="pg-hero">
-      <div class="pg-badge">&#128176; Addım 3 / 3</div>
-      <h2>Qiymətlər & İş Saatları</h2>
-      <p>Hər xidmət üçün öz qiymətinizi yazın</p>
-    </div>
-    <div class="stepper">
-      <div class="sdot done"></div><div class="sdot done"></div><div class="sdot active"></div>
-    </div>
-    <div class="card">
-      <div class="sec-label">Qiymətlər (AZN)</div>
-      <div class="prow"><div class="picon">&#9986;</div><div class="plabel"><div class="pn">Saç kəsimi</div></div><input class="pinp" type="number" value="15" id="p-hc"><span class="punit">AZN</span></div>
-      <div class="prow"><div class="picon">&#128299;</div><div class="plabel"><div class="pn">Saqqal</div></div><input class="pinp" type="number" value="10" id="p-bd"><span class="punit">AZN</span></div>
-      <div class="prow"><div class="picon">&#128136;</div><div class="plabel"><div class="pn">Saç + Saqqal</div></div><input class="pinp" type="number" value="20" id="p-cb"><span class="punit">AZN</span></div>
-      <div class="prow"><div class="picon">&#128166;</div><div class="plabel"><div class="pn">Buxar Masaj</div></div><input class="pinp" type="number" value="8" id="p-st"><span class="punit">AZN</span></div>
-      <div class="prow"><div class="picon">&#128167;</div><div class="plabel"><div class="pn">Saç boyası</div></div><input class="pinp" type="number" value="30" id="p-cl"><span class="punit">AZN</span></div>
-      <div class="prow"><div class="picon">&#9999;</div><div class="plabel"><div class="pn">Qaş dizayn</div></div><input class="pinp" type="number" value="5" id="p-br"><span class="punit">AZN</span></div>
-    </div>
-    <div class="card">
-      <div class="sec-label">İş Saatları</div>
-      <div class="hrs-row"><div class="day-n">B.er</div><input class="hinp" type="time" value="09:00" id="h-we-s"><span class="hsep">–</span><input class="hinp" type="time" value="20:00" id="h-we-e"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-      <div class="hrs-row"><div class="day-n">Çər</div><input class="hinp" type="time" value="09:00"><span class="hsep">–</span><input class="hinp" type="time" value="20:00"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-      <div class="hrs-row"><div class="day-n">Cüm</div><input class="hinp" type="time" value="09:00"><span class="hsep">–</span><input class="hinp" type="time" value="20:00"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-      <div class="hrs-row"><div class="day-n">Şən</div><input class="hinp" type="time" value="10:00"><span class="hsep">–</span><input class="hinp" type="time" value="18:00"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-      <div class="hrs-row"><div class="day-n">Baz</div><input class="hinp" type="time" value="10:00"><span class="hsep">–</span><input class="hinp" type="time" value="16:00"><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
-    </div>
-    <div class="px flex gap8">
-      <button class="btn btn-glass" style="margin:0;flex:0 0 auto;width:auto;padding:16px 20px" onclick="showStep(2)">&#8592;</button>
-      <button class="btn btn-gold" style="margin:0;flex:1" onclick="completeBarberReg()">Qeydiyyatı Tamamla &#10003;</button>
-    </div>
-    <div style="height:16px"></div>
-  </div>
+  <div class="px"><button class="btn btn-gold" onclick="confirmBooking()">Zapisi Təsdiqlə &#10003;</button></div>
 </div>
 
 <!-- ══════ BARBER DASHBOARD ══════ -->
 <div class="page" id="pg-dash">
-  <div class="topbar" style="justify-content:space-between">
+  <div class="topbar">
     <div class="topbar-title" id="dash-name">Paneliniz</div>
-    <div class="icon-btn btn-sm gold-sm" style="width:auto;padding:0 14px;border-radius:12px;font-size:13px" onclick="go('pg-welcome')">&#8592; Çıxış</div>
+    <div class="icon-btn" onclick="signOutUser()" title="Çıxış" style="font-size:14px">&#x23FB;</div>
   </div>
   <div class="phero">
-    <div class="pava" id="dash-ava">&#128100;</div>
+    <div class="pava" id="dash-ava">?</div>
     <div style="flex:1">
       <div class="pname" id="dash-fullname">–</div>
       <div class="ploc" id="dash-loc">–</div>
@@ -659,20 +596,20 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
         <span class="badge bgr" id="dash-status">Aktiv</span>
       </div>
     </div>
-    <div class="toggle on" onclick="toggleActive(this)"></div>
+    <div class="toggle on" id="dash-toggle" onclick="toggleActive(this)"></div>
   </div>
   <div class="sgrid">
-    <div class="sbox"><div class="snum" id="ds-appts">0</div><div class="slbl">Bu günkü zapis</div></div>
-    <div class="sbox"><div class="snum" style="color:var(--green)" id="ds-earn">0</div><div class="slbl">Günlük (AZN)</div></div>
+    <div class="sbox"><div class="snum">0</div><div class="slbl">Bu günkü zapis</div></div>
+    <div class="sbox"><div class="snum" style="color:var(--green)">0</div><div class="slbl">Günlük (AZN)</div></div>
   </div>
   <div style="padding:0 16px 14px;display:flex;gap:10px">
     <button class="btn btn-gold" style="margin:0;flex:1;padding:13px" onclick="go('pg-dash-edit')">&#9998; Profil</button>
     <button class="btn btn-glass" style="margin:0;flex:1;padding:13px" onclick="go('pg-prices')">&#128176; Qiymətlər</button>
   </div>
   <div class="card">
-    <div class="sec-label">Bu Günün Növbələri</div>
+    <div class="sec-label">Bugünkü Növbələr</div>
     <div id="dash-queue">
-      <div class="empty"><div class="ei">&#128197;</div><p>Hələ ki zapis yoxdur</p></div>
+      <div class="empty"><div class="ei">&#128197;</div><p>Hələ zapis yoxdur</p></div>
     </div>
   </div>
 </div>
@@ -695,6 +632,8 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
         <div class="fgroup" style="margin-bottom:0"><label class="flabel">Soyad</label><input class="finput" id="e-ln" type="text"></div>
       </div>
       <div class="fgroup"><label class="flabel">Telefon</label><input class="finput" id="e-ph" type="tel"></div>
+      <div class="fgroup"><label class="flabel">Instagram</label><input class="finput" id="e-ig" type="text"></div>
+      <div class="fgroup"><label class="flabel">Bio</label><textarea class="ftextarea" id="e-bio"></textarea></div>
       <div class="fgroup"><label class="flabel">Salon adı</label><input class="finput" id="e-salon" type="text"></div>
       <div class="fgroup"><label class="flabel">Rayon</label>
         <select class="fselect" id="e-dist">
@@ -702,9 +641,9 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
           <option>Sabunçu</option><option>Xəzər</option><option>Suraxanı</option>
         </select>
       </div>
-      <div class="fgroup" style="margin-bottom:0"><label class="flabel">Bio</label><textarea class="ftextarea" id="e-bio"></textarea></div>
+      <div class="fgroup" style="margin-bottom:0"><label class="flabel">Ünvan</label><input class="finput" id="e-addr" type="text"></div>
     </div>
-    <div class="px"><button class="btn btn-gold" onclick="updateBarberProfile()">Dəyişiklikləri Saxla &#10003;</button></div>
+    <div class="px"><button class="btn btn-gold" onclick="updateBarberProfile()">Saxla &#10003;</button></div>
   </div>
   <div id="et-hours" class="hidden">
     <div class="card">
@@ -715,7 +654,7 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
       <div class="hrs-row"><div class="day-n">Şən</div><input class="hinp" type="time" value="10:00"><span class="hsep">–</span><input class="hinp" type="time" value="18:00"><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
       <div class="hrs-row"><div class="day-n">Baz</div><input class="hinp" type="time" value="10:00"><span class="hsep">–</span><input class="hinp" type="time" value="16:00"><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
     </div>
-    <div class="px"><button class="btn btn-gold" onclick="showModal('Saatlar Yeniləndi','İş saatlarınız uğurla saxlandı.','&#128336;')">Saxla &#10003;</button></div>
+    <div class="px"><button class="btn btn-gold" onclick="showModal('Saatlar Saxlandı','İş saatlarınız yeniləndi.','&#128336;')">Saxla &#10003;</button></div>
   </div>
   <div id="et-svcs" class="hidden">
     <div class="card">
@@ -730,7 +669,7 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
         <div class="chip" onclick="this.classList.toggle('on')">&#9728; Uşaq</div>
       </div>
     </div>
-    <div class="px"><button class="btn btn-gold" onclick="showModal('Xidmətlər Yeniləndi','Seçimləriniz saxlandı.','&#9986;&#65039;')">Saxla &#10003;</button></div>
+    <div class="px"><button class="btn btn-gold" onclick="showModal('Xidmətlər Saxlandı','Seçimləriniz yeniləndi.','&#9986;&#65039;')">Saxla &#10003;</button></div>
   </div>
 </div>
 
@@ -746,7 +685,7 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
     <p>Hər xidmət üçün öz qiymətinizi yazın</p>
   </div>
   <div class="card">
-    <div class="sec-label">Aktiv Xidmətlər</div>
+    <div class="sec-label">Xidmət Qiymətləri (AZN)</div>
     <div class="prow"><div class="picon">&#9986;</div><div class="plabel"><div class="pn">Saç kəsimi</div><div class="pd">~30 dəq</div></div><input class="pinp" type="number" value="15" id="mp-hc"><span class="punit">AZN</span></div>
     <div class="prow"><div class="picon">&#128299;</div><div class="plabel"><div class="pn">Saqqal</div><div class="pd">~20 dəq</div></div><input class="pinp" type="number" value="10" id="mp-bd"><span class="punit">AZN</span></div>
     <div class="prow"><div class="picon">&#128136;</div><div class="plabel"><div class="pn">Saç + Saqqal</div><div class="pd">~50 dəq</div></div><input class="pinp" type="number" value="20" id="mp-cb"><span class="punit">AZN</span></div>
@@ -768,13 +707,13 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
   </div>
 </div>
 
-<!-- ══════ FIREBASE + APP JS ══════ -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, query, orderBy, serverTimestamp }
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc, setDoc, updateDoc, query, orderBy, serverTimestamp }
   from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
-// ── YOUR FIREBASE CONFIG ──────────────────────
 const firebaseConfig = {
   apiKey: "AIzaSyBvePrXEyUynUBtPIzh9XlofL-SHordKsI",
   authDomain: "mybarber-7ba0a.firebaseapp.com",
@@ -784,18 +723,56 @@ const firebaseConfig = {
   appId: "1:560697379122:web:7091d165c4e1a8b924ef2b"
 };
 
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
+const auth = getAuth(app);
 
-// ── STATE ────────────────────────────────────
+// ── STATE ─────────────────────────────────────
 let curPage    = 'pg-welcome';
 let modalCb    = null;
 let bkSvc      = null;
 let bkTime     = null;
-let curBarber  = null; // active barber doc
+let curBarber  = null;
 let curBarberId= null;
 let allBarbers = [];
-let catFilter  = 'all';
+let currentUser= null;
+let userRole   = null; // 'client' | 'barber'
+
+// ── AUTH STATE LISTENER ───────────────────────
+onAuthStateChanged(auth, async (user) => {
+  const splash = document.getElementById('splash');
+  if (user) {
+    currentUser = user;
+    // Check if barber or client
+    const barberDoc = await getDoc(doc(db, 'barbers', user.uid));
+    if (barberDoc.exists()) {
+      userRole = 'barber';
+      const data = barberDoc.data();
+      curBarberId = user.uid;
+      loadDashboard(data);
+      showPage('pg-dash');
+    } else {
+      const clientDoc = await getDoc(doc(db, 'clients', user.uid));
+      if (clientDoc.exists()) {
+        userRole = 'client';
+        loadBarbers();
+        showPage('pg-client-home');
+      } else {
+        showPage('pg-welcome');
+      }
+    }
+  } else {
+    currentUser = null;
+    showPage('pg-welcome');
+  }
+  setTimeout(() => splash.classList.add('hide'), 600);
+});
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('show','out'));
+  document.getElementById(id)?.classList.add('show');
+  curPage = id;
+}
 
 // ── NAVIGATION ────────────────────────────────
 window.go = function(id) {
@@ -807,6 +784,8 @@ window.go = function(id) {
   setTimeout(() => cur.classList.remove('show','out'), 260);
   setTimeout(() => { next.classList.add('show'); next.scrollTop = 0; curPage = id; }, 140);
 };
+
+window.setRole = function(role) { userRole = role; };
 
 // ── MODAL ─────────────────────────────────────
 window.showModal = function(title, msg, icon, cb) {
@@ -824,26 +803,139 @@ document.getElementById('modal-bg').addEventListener('click', e => {
   if (e.target === document.getElementById('modal-bg')) window.closeModal();
 });
 
-// ── CLIENT REGISTER ───────────────────────────
-window.clientRegister = async function() {
-  const fn = document.getElementById('cl-fn').value.trim();
-  const ln = document.getElementById('cl-ln').value.trim();
-  const ph = document.getElementById('cl-ph').value.trim();
-  if (!fn || !ln) { showModal('Xəta','Ad və soyad daxil edin.','&#x26A0;&#xFE0F;'); return; }
-  if (!ph)        { showModal('Xəta','Telefon nömrəsi lazımdır.','&#x26A0;&#xFE0F;'); return; }
+// ── SWITCH AUTH FORM ──────────────────────────
+window.switchAuth = function(hideId, showId, titleId, subId, title, sub) {
+  document.getElementById(hideId).classList.add('hidden');
+  document.getElementById(showId).classList.remove('hidden');
+  document.getElementById(titleId).textContent = title;
+  document.getElementById(subId).textContent   = sub;
+};
+
+// ── PASSWORD TOGGLE ───────────────────────────
+window.togglePw = function(id, eye) {
+  const inp = document.getElementById(id);
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  eye.textContent = inp.type === 'password' ? '👁' : '🙈';
+};
+
+// ── CLIENT LOGIN ──────────────────────────────
+window.clientLogin = async function() {
+  const email = document.getElementById('cl-l-email').value.trim();
+  const pass  = document.getElementById('cl-l-pass').value;
+  if (!email || !pass) { showModal('Xəta','Email və şifrəni daxil edin.','⚠️'); return; }
   try {
-    await addDoc(collection(db,'clients'), {
-      firstName: fn, lastName: ln, phone: ph,
-      district: document.getElementById('cl-dist').value,
-      style: document.getElementById('cl-style').value,
-      createdAt: serverTimestamp()
-    });
-    showModal('Qeydiyyat Tamamlandı!', `Xoş gəldin, ${fn}! İndi bərbərləri tapa bilərsiniz.`, '&#127881;',
-      () => { loadBarbers(); go('pg-client-home'); });
+    await signInWithEmailAndPassword(auth, email, pass);
+    // onAuthStateChanged handles navigation
   } catch(e) {
-    showModal('Xəta', 'Qeydiyyat alınmadı. İnternet bağlantınızı yoxlayın.', '&#x26A0;&#xFE0F;');
+    showModal('Giriş Xətası', e.code === 'auth/invalid-credential'
+      ? 'Email və ya şifrə yanlışdır.' : 'Xəta baş verdi. Yenidən cəhd edin.', '⚠️');
   }
 };
+
+// ── CLIENT REGISTER ───────────────────────────
+window.clientRegister = async function() {
+  const fn    = document.getElementById('cl-r-fn').value.trim();
+  const ln    = document.getElementById('cl-r-ln').value.trim();
+  const ph    = document.getElementById('cl-r-ph').value.trim();
+  const email = document.getElementById('cl-r-email').value.trim();
+  const pass  = document.getElementById('cl-r-pass').value;
+  const dist  = document.getElementById('cl-r-dist').value;
+  if (!fn || !ln)     { showModal('Xəta','Ad və soyad lazımdır.','⚠️'); return; }
+  if (!email || !pass){ showModal('Xəta','Email və şifrə lazımdır.','⚠️'); return; }
+  if (pass.length < 6){ showModal('Xəta','Şifrə minimum 6 simvol olmalıdır.','⚠️'); return; }
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    await setDoc(doc(db, 'clients', cred.user.uid), {
+      firstName: fn, lastName: ln, phone: ph,
+      email, district: dist, createdAt: serverTimestamp()
+    });
+    // onAuthStateChanged handles navigation
+  } catch(e) {
+    showModal('Qeydiyyat Xətası',
+      e.code === 'auth/email-already-in-use' ? 'Bu email artıq istifadə olunur.' : 'Xəta baş verdi.','⚠️');
+  }
+};
+
+// ── BARBER LOGIN ──────────────────────────────
+window.barberLogin = async function() {
+  const email = document.getElementById('br-l-email').value.trim();
+  const pass  = document.getElementById('br-l-pass').value;
+  if (!email || !pass) { showModal('Xəta','Email və şifrəni daxil edin.','⚠️'); return; }
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch(e) {
+    showModal('Giriş Xətası', e.code === 'auth/invalid-credential'
+      ? 'Email və ya şifrə yanlışdır.' : 'Xəta baş verdi.', '⚠️');
+  }
+};
+
+// ── BARBER REGISTER ───────────────────────────
+window.barberRegister = async function() {
+  const fn    = document.getElementById('br-fn').value.trim();
+  const ln    = document.getElementById('br-ln').value.trim();
+  const ph    = document.getElementById('br-ph').value.trim();
+  const email = document.getElementById('br-email').value.trim();
+  const pass  = document.getElementById('br-pass').value;
+  const dist  = document.getElementById('br-dist').value;
+  if (!fn)            { showModal('Xəta','Adınızı daxil edin.','⚠️'); return; }
+  if (!email || !pass){ showModal('Xəta','Email və şifrə lazımdır.','⚠️'); return; }
+  if (pass.length < 6){ showModal('Xəta','Şifrə minimum 6 simvol olmalıdır.','⚠️'); return; }
+  if (!dist)          { showModal('Xəta','Rayon seçin.','⚠️'); return; }
+  const chips = Array.from(document.querySelectorAll('#reg-chips .chip.on')).map(c => c.textContent.trim());
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    await setDoc(doc(db, 'barbers', cred.user.uid), {
+      firstName: fn, lastName: ln, phone: ph, email,
+      instagram: document.getElementById('br-ig').value.trim(),
+      bio:       document.getElementById('br-bio').value.trim(),
+      salon:     document.getElementById('br-salon').value.trim(),
+      district:  dist,
+      address:   document.getElementById('br-addr').value.trim(),
+      exp:       document.getElementById('br-exp').value,
+      services:  chips,
+      prices:    { haircut:15, beard:10, combo:20, steam:8, color:30, brow:5 },
+      isActive:  true,
+      createdAt: serverTimestamp()
+    });
+    // onAuthStateChanged handles navigation
+  } catch(e) {
+    showModal('Qeydiyyat Xətası',
+      e.code === 'auth/email-already-in-use' ? 'Bu email artıq istifadə olunur.' : 'Xəta baş verdi.','⚠️');
+  }
+};
+
+// ── SIGN OUT ──────────────────────────────────
+window.signOutUser = async function() {
+  await signOut(auth);
+  allBarbers = [];
+  curBarber  = null;
+  curBarberId= null;
+};
+
+// ── LOAD DASHBOARD ────────────────────────────
+function loadDashboard(data) {
+  const name = `${data.firstName||''} ${data.lastName||''}`.trim();
+  document.getElementById('dash-name').textContent     = name;
+  document.getElementById('dash-fullname').textContent = name;
+  document.getElementById('dash-loc').textContent      = (data.district||'Bakı') + ' r. — ' + (data.salon||'Salon');
+  document.getElementById('dash-ava').textContent      = (data.firstName||'?')[0].toUpperCase();
+  // Fill edit form
+  document.getElementById('e-fn').value    = data.firstName || '';
+  document.getElementById('e-ln').value    = data.lastName  || '';
+  document.getElementById('e-ph').value    = data.phone     || '';
+  document.getElementById('e-ig').value    = data.instagram || '';
+  document.getElementById('e-bio').value   = data.bio       || '';
+  document.getElementById('e-salon').value = data.salon     || '';
+  document.getElementById('e-addr').value  = data.address   || '';
+  // Prices
+  const p = data.prices || {};
+  if (p.haircut) document.getElementById('mp-hc').value = p.haircut;
+  if (p.beard)   document.getElementById('mp-bd').value = p.beard;
+  if (p.combo)   document.getElementById('mp-cb').value = p.combo;
+  if (p.steam)   document.getElementById('mp-st').value = p.steam;
+  if (p.color)   document.getElementById('mp-cl').value = p.color;
+  if (p.brow)    document.getElementById('mp-br').value = p.brow;
+}
 
 // ── LOAD BARBERS ──────────────────────────────
 window.loadBarbers = async function() {
@@ -855,52 +947,47 @@ window.loadBarbers = async function() {
     snap.forEach(d => allBarbers.push({ id: d.id, ...d.data() }));
     renderBarbers(allBarbers);
   } catch(e) {
-    list.innerHTML = '<div class="empty"><div class="ei">&#128268;</div><p>Yükləmə xətası. İnternet bağlantınızı yoxlayın.</p></div>';
+    list.innerHTML = '<div class="empty"><div class="ei">⚠️</div><p>Yükləmə xətası</p></div>';
   }
 };
 
 function renderBarbers(list) {
   const el = document.getElementById('barber-list');
   if (!list.length) {
-    el.innerHTML = '<div class="empty"><div class="ei">&#9986;&#65039;</div><p>Hələ bərbər qeydiyyatdan keçməyib.</p></div>';
+    el.innerHTML = '<div class="empty"><div class="ei">✂️</div><p>Hələ bərbər qeydiyyatdan keçməyib.</p></div>';
     return;
   }
-  el.innerHTML = list.map(b => `
+  el.innerHTML = list.map(b => {
+    const name = `${b.firstName||''} ${b.lastName||''}`.trim();
+    const init = (b.firstName||'?')[0].toUpperCase();
+    return `
     <div class="bcard" onclick="openProfile('${b.id}')">
-      <div class="bava">${b.firstName ? b.firstName[0].toUpperCase() : '&#128100;'}</div>
+      <div class="bava">${init}</div>
       <div class="binfo">
-        <div class="bname">${b.firstName || ''} ${b.lastName || ''}</div>
-        <div class="bloc">&#128205; ${b.district || 'Bakı'} rayonu</div>
+        <div class="bname">${name}</div>
+        <div class="bloc">📍 ${b.district||'Bakı'} rayonu</div>
         <div class="btags">
-          <span class="tag tgr">&#9679; Aktiv</span>
-          <span class="tag tg">&#9733; Yeni</span>
-          <span class="tag tgy">${b.exp || '1+ il'}</span>
+          <span class="tag tgr">● Aktiv</span>
+          <span class="tag tg">★ Yeni</span>
+          <span class="tag tgy">${b.exp||'1+ il'}</span>
         </div>
       </div>
-      <span style="color:var(--muted);font-size:20px">&#8250;</span>
-    </div>
-  `).join('');
+      <span style="color:var(--muted);font-size:20px">›</span>
+    </div>`;
+  }).join('');
 }
 
-// ── SEARCH & FILTER ───────────────────────────
 window.filterBarbers = function(q) {
-  const filtered = allBarbers.filter(b => {
-    const name = `${b.firstName||''} ${b.lastName||''}`.toLowerCase();
-    const dist = (b.district || '').toLowerCase();
-    return name.includes(q.toLowerCase()) || dist.includes(q.toLowerCase());
-  });
-  renderBarbers(filtered);
+  renderBarbers(allBarbers.filter(b => {
+    const n = `${b.firstName||''} ${b.lastName||''}`.toLowerCase();
+    return n.includes(q.toLowerCase()) || (b.district||'').toLowerCase().includes(q.toLowerCase());
+  }));
 };
 
 window.setCat = function(el, cat) {
   document.querySelectorAll('[onclick^="setCat"]').forEach(c => c.classList.remove('on'));
   el.classList.add('on');
-  catFilter = cat;
-  if (cat === 'all') { renderBarbers(allBarbers); return; }
-  renderBarbers(allBarbers.filter(b => {
-    if (cat === 'boş') return true;
-    return (b.district || '') === cat;
-  }));
+  renderBarbers(cat === 'all' ? allBarbers : allBarbers.filter(b => b.district === cat));
 };
 
 // ── OPEN BARBER PROFILE ───────────────────────
@@ -908,50 +995,36 @@ window.openProfile = function(id) {
   curBarberId = id;
   curBarber   = allBarbers.find(b => b.id === id);
   if (!curBarber) return;
-  const b = curBarber;
+  const b    = curBarber;
   const name = `${b.firstName||''} ${b.lastName||''}`.trim();
-  document.getElementById('bpTitle').textContent  = name;
-  document.getElementById('bpName').textContent   = name;
-  document.getElementById('bpLoc').textContent    = (b.district||'Bakı') + ' rayonu';
-  document.getElementById('bpStatus').textContent = 'Aktiv';
-  document.getElementById('bpExp').textContent    = b.exp || '1+ il';
-  document.getElementById('bpAbout').textContent  = b.bio || 'Haqqında məlumat yoxdur.';
-  document.getElementById('bpSalon').textContent  = b.salon || '–';
-  document.getElementById('bpAddr').textContent   = b.address || '–';
-  document.getElementById('bpPhone').textContent  = b.phone || '–';
-  document.getElementById('bpIg').textContent     = b.instagram || '–';
-  document.getElementById('bk-name').textContent  = name;
+  const init = (b.firstName||'?')[0].toUpperCase();
+  document.getElementById('bpTitle').textContent = name;
+  document.getElementById('bpName').textContent  = name;
+  document.getElementById('bpAva').textContent   = init;
+  document.getElementById('bpLoc').textContent   = (b.district||'Bakı') + ' rayonu';
+  document.getElementById('bpExp').textContent   = b.exp || '1+ il';
+  document.getElementById('bpAbout').textContent = b.bio || 'Haqqında məlumat yoxdur.';
+  document.getElementById('bpSalon').textContent = b.salon || '–';
+  document.getElementById('bpAddr').textContent  = b.address || '–';
+  document.getElementById('bpPhone').textContent = b.phone || '–';
+  document.getElementById('bpIg').textContent    = b.instagram || '–';
+  document.getElementById('bk-name').textContent = name;
   document.getElementById('sum-bar').textContent  = name;
-
-  // Services
-  const svcs = b.prices || { haircut:15, beard:10, combo:20, steam:8 };
+  const p = b.prices || {};
   const svcMap = [
-    { icon:'&#9986;', name:'Saç kəsimi', key:'haircut', dur:'~30 dəq' },
-    { icon:'&#128299;', name:'Saqqal', key:'beard', dur:'~20 dəq' },
-    { icon:'&#128136;', name:'Saç + Saqqal', key:'combo', dur:'~50 dəq' },
-    { icon:'&#128166;', name:'Buxar Masaj', key:'steam', dur:'~15 dəq' },
-    { icon:'&#128167;', name:'Saç boyası', key:'color', dur:'~60 dəq' },
-    { icon:'&#9999;', name:'Qaş dizayn', key:'brow', dur:'~15 dəq' },
+    { icon:'✂️', name:'Saç kəsimi', key:'haircut', dur:'~30 dəq' },
+    { icon:'🪒', name:'Saqqal', key:'beard', dur:'~20 dəq' },
+    { icon:'👤', name:'Saç + Saqqal', key:'combo', dur:'~50 dəq' },
+    { icon:'💆', name:'Buxar Masaj', key:'steam', dur:'~15 dəq' },
+    { icon:'💧', name:'Saç boyası', key:'color', dur:'~60 dəq' },
+    { icon:'✏️', name:'Qaş dizayn', key:'brow', dur:'~15 dəq' },
   ];
-  document.getElementById('bpSvcList').innerHTML =
-    '<div class="sec-label">Qiymət Siyahısı</div>' +
-    svcMap.filter(s => svcs[s.key]).map(s => `
-      <div class="prow">
-        <div class="picon">${s.icon}</div>
-        <div class="plabel"><div class="pn">${s.name}</div><div class="pd">${s.dur}</div></div>
-        <b class="gold">${svcs[s.key]} AZN</b>
-      </div>
-    `).join('');
-
-  document.getElementById('bk-svcs').innerHTML = svcMap.filter(s => svcs[s.key]).map(s => `
-    <div class="prow" style="cursor:pointer" onclick="pickSvc(this,'${s.name}','${svcs[s.key]}')">
-      <div class="picon">${s.icon}</div>
-      <div class="plabel"><div class="pn">${s.name}</div><div class="pd">${s.dur}</div></div>
-      <b class="gold">${svcs[s.key]} AZN</b>
-    </div>
-  `).join('');
-
-  // Reset tabs
+  const svcs = svcMap.filter(s => p[s.key]);
+  document.getElementById('bpSvcList').innerHTML = '<div class="sec-label">Qiymət Siyahısı</div>' +
+    svcs.map(s => `<div class="prow"><div class="picon">${s.icon}</div><div class="plabel"><div class="pn">${s.name}</div><div class="pd">${s.dur}</div></div><b class="gold">${p[s.key]} AZN</b></div>`).join('');
+  document.getElementById('bk-svcs').innerHTML = svcs.map(s =>
+    `<div class="prow" style="cursor:pointer" onclick="pickSvc(this,'${s.name}','${p[s.key]}')"><div class="picon">${s.icon}</div><div class="plabel"><div class="pn">${s.name}</div><div class="pd">${s.dur}</div></div><b class="gold">${p[s.key]} AZN</b></div>`
+  ).join('');
   bpTab(document.querySelector('#pg-bprofile .tab'), 'bpt-port');
   go('pg-bprofile');
 };
@@ -960,17 +1033,15 @@ window.openProfile = function(id) {
 window.bpTab = function(el, id) {
   document.querySelectorAll('#pg-bprofile .tab').forEach(t => t.classList.remove('on'));
   el.classList.add('on');
-  ['bpt-port','bpt-svc','bpt-rev','bpt-info'].forEach(t => {
-    document.getElementById(t)?.classList.toggle('hidden', t !== id);
-  });
+  ['bpt-port','bpt-svc','bpt-rev','bpt-info'].forEach(t =>
+    document.getElementById(t)?.classList.toggle('hidden', t !== id));
 };
 
 window.editTab = function(el, id) {
   document.querySelectorAll('#edit-tabs .tab').forEach(t => t.classList.remove('on'));
   el.classList.add('on');
-  ['et-info','et-hours','et-svcs'].forEach(t => {
-    document.getElementById(t)?.classList.toggle('hidden', t !== id);
-  });
+  ['et-info','et-hours','et-svcs'].forEach(t =>
+    document.getElementById(t)?.classList.toggle('hidden', t !== id));
 };
 
 // ── BOOKING ───────────────────────────────────
@@ -993,8 +1064,8 @@ function updateSummary() {
   const dateEl = document.getElementById('bk-date');
   if (bkSvc && bkTime) {
     document.getElementById('bk-summary').classList.remove('hidden');
-    document.getElementById('sum-svc').textContent  = bkSvc.name;
-    document.getElementById('sum-time').textContent = bkTime;
+    document.getElementById('sum-svc').textContent   = bkSvc.name;
+    document.getElementById('sum-time').textContent  = bkTime;
     document.getElementById('sum-price').textContent = bkSvc.price + ' AZN';
     if (dateEl.value) {
       const d = new Date(dateEl.value);
@@ -1006,178 +1077,83 @@ function updateSummary() {
 document.getElementById('bk-date').addEventListener('change', updateSummary);
 
 window.confirmBooking = async function() {
-  if (!bkSvc)  { showModal('Xidmət seçin','Bir xidmət seçin.','&#x26A0;&#xFE0F;'); return; }
-  if (!bkTime) { showModal('Vaxt seçin','Bir vaxt seçin.','&#x26A0;&#xFE0F;'); return; }
+  if (!bkSvc)  { showModal('Xidmət seçin','Bir xidmət seçin.','⚠️'); return; }
+  if (!bkTime) { showModal('Vaxt seçin','Bir vaxt seçin.','⚠️'); return; }
   try {
     const barberName = `${curBarber?.firstName||''} ${curBarber?.lastName||''}`.trim();
     await addDoc(collection(db,'bookings'), {
-      barberId:    curBarberId,
-      barberName,
-      service:     bkSvc.name,
-      price:       bkSvc.price,
-      time:        bkTime,
-      date:        document.getElementById('bk-date').value,
-      createdAt:   serverTimestamp()
-    });
-    showModal('Zapis Təsdiqləndi!',
-      `${bkSvc.name} üçün saat ${bkTime}-a yazıldınız. Ustanız sizi gözləyir!`,
-      '&#128197;', () => go('pg-client-home'));
-    bkSvc = null; bkTime = null;
-  } catch(e) {
-    showModal('Xəta','Zapis alınmadı. Yenidən cəhd edin.','&#x26A0;&#xFE0F;');
-  }
-};
-
-// ── BARBER REGISTER ───────────────────────────
-window.showStep = function(n) {
-  [1,2,3].forEach(i => document.getElementById('br-s'+i)?.classList.toggle('hidden', i!==n));
-  document.getElementById('pg-barber-reg').scrollTop = 0;
-};
-window.brStep2 = function() {
-  if (!document.getElementById('br-fn').value.trim()) {
-    showModal('Xəta','Adınızı daxil edin.','&#x26A0;&#xFE0F;'); return;
-  }
-  showStep(2);
-};
-window.brStep3 = function() { showStep(3); };
-
-window.completeBarberReg = async function() {
-  const fn    = document.getElementById('br-fn').value.trim();
-  const ln    = document.getElementById('br-ln').value.trim();
-  const ph    = document.getElementById('br-ph').value.trim();
-  const salon = document.getElementById('br-salon').value.trim();
-  const dist  = document.getElementById('br-dist').value;
-  if (!fn) { showModal('Xəta','Adınızı daxil edin.','&#x26A0;&#xFE0F;'); return; }
-  if (!ph) { showModal('Xəta','Telefon nömrəsi lazımdır.','&#x26A0;&#xFE0F;'); return; }
-  if (!dist) { showModal('Xəta','Rayon seçin.','&#x26A0;&#xFE0F;'); return; }
-
-  const prices = {
-    haircut: parseFloat(document.getElementById('p-hc').value) || 15,
-    beard:   parseFloat(document.getElementById('p-bd').value) || 10,
-    combo:   parseFloat(document.getElementById('p-cb').value) || 20,
-    steam:   parseFloat(document.getElementById('p-st').value) || 8,
-    color:   parseFloat(document.getElementById('p-cl').value) || 30,
-    brow:    parseFloat(document.getElementById('p-br').value) || 5,
-  };
-
-  const chips = Array.from(document.querySelectorAll('#svc-chips .chip.on')).map(c => c.textContent.trim());
-
-  try {
-    const docRef = await addDoc(collection(db,'barbers'), {
-      firstName: fn, lastName: ln, phone: ph,
-      instagram: document.getElementById('br-ig').value.trim(),
-      bio:       document.getElementById('br-bio').value.trim(),
-      salon, district: dist,
-      address:   document.getElementById('br-addr').value.trim(),
-      exp:       document.getElementById('br-exp').value,
-      prices, services: chips,
-      isActive: true,
+      barberId: curBarberId, barberName,
+      clientId: currentUser?.uid || 'anonymous',
+      service: bkSvc.name, price: bkSvc.price,
+      time: bkTime, date: document.getElementById('bk-date').value,
       createdAt: serverTimestamp()
     });
-    curBarberId = docRef.id;
-
-    // Update dashboard
-    document.getElementById('dash-name').textContent     = fn + ' ' + ln;
-    document.getElementById('dash-fullname').textContent = fn + ' ' + ln;
-    document.getElementById('dash-loc').textContent      = dist + ' r. — ' + (salon || 'Salon');
-
-    showModal('Qeydiyyat Tamamlandı!',
-      'Profiliniz yaradıldı! Müştərilər indi sizi görə bilər.',
-      '&#9986;&#65039;', () => go('pg-dash'));
+    showModal('Zapis Təsdiqləndi!',
+      `${bkSvc.name} üçün saat ${bkTime}-a yazıldınız!`, '📅',
+      () => go('pg-client-home'));
+    bkSvc = null; bkTime = null;
   } catch(e) {
-    showModal('Xəta', 'Qeydiyyat alınmadı. İnternet bağlantınızı yoxlayın.', '&#x26A0;&#xFE0F;');
+    showModal('Xəta','Zapis alınmadı.','⚠️');
   }
 };
 
-// ── BARBER PROFILE UPDATE ─────────────────────
+// ── BARBER UPDATE PROFILE ─────────────────────
 window.updateBarberProfile = async function() {
-  if (!curBarberId) { showModal('Xəta','Əvvəlcə qeydiyyatdan keçin.','&#x26A0;&#xFE0F;'); return; }
+  if (!curBarberId && !currentUser) return;
+  const uid = currentUser?.uid;
   try {
-    await updateDoc(doc(db,'barbers',curBarberId), {
+    const data = {
       firstName: document.getElementById('e-fn').value.trim(),
       lastName:  document.getElementById('e-ln').value.trim(),
       phone:     document.getElementById('e-ph').value.trim(),
+      instagram: document.getElementById('e-ig').value.trim(),
+      bio:       document.getElementById('e-bio').value.trim(),
       salon:     document.getElementById('e-salon').value.trim(),
       district:  document.getElementById('e-dist').value,
-      bio:       document.getElementById('e-bio').value.trim(),
-    });
-    document.getElementById('dash-name').textContent =
-      document.getElementById('e-fn').value.trim() + ' ' + document.getElementById('e-ln').value.trim();
-    showModal('Profil Yeniləndi &#10003;','Dəyişiklikləriniz saxlandı.','&#128100;');
+      address:   document.getElementById('e-addr').value.trim(),
+    };
+    await updateDoc(doc(db,'barbers', uid), data);
+    loadDashboard({ ...data });
+    showModal('Profil Yeniləndi ✓','Dəyişiklikləriniz saxlandı.','👤');
   } catch(e) {
-    showModal('Xəta','Yeniləmə alınmadı.','&#x26A0;&#xFE0F;');
+    showModal('Xəta','Yeniləmə alınmadı.','⚠️');
   }
 };
 
 // ── SAVE PRICES ───────────────────────────────
 window.savePrices = async function() {
-  if (!curBarberId) { showModal('Xəta','Əvvəlcə qeydiyyatdan keçin.','&#x26A0;&#xFE0F;'); return; }
+  const uid = currentUser?.uid;
+  if (!uid) return;
   const prices = {
-    haircut: parseFloat(document.getElementById('mp-hc').value) || 0,
-    beard:   parseFloat(document.getElementById('mp-bd').value) || 0,
-    combo:   parseFloat(document.getElementById('mp-cb').value) || 0,
-    steam:   parseFloat(document.getElementById('mp-st').value) || 0,
-    color:   parseFloat(document.getElementById('mp-cl').value) || 0,
-    brow:    parseFloat(document.getElementById('mp-br').value) || 0,
+    haircut: +document.getElementById('mp-hc').value || 0,
+    beard:   +document.getElementById('mp-bd').value || 0,
+    combo:   +document.getElementById('mp-cb').value || 0,
+    steam:   +document.getElementById('mp-st').value || 0,
+    color:   +document.getElementById('mp-cl').value || 0,
+    brow:    +document.getElementById('mp-br').value || 0,
   };
   try {
-    await updateDoc(doc(db,'barbers',curBarberId), { prices });
-    showModal('Qiymətlər Yeniləndi &#10003;','Müştərilər yeni qiymətləri görür.','&#128176;');
+    await updateDoc(doc(db,'barbers', uid), { prices });
+    showModal('Qiymətlər Yeniləndi ✓','Müştərilər yeni qiymətləri görür.','💰');
   } catch(e) {
-    showModal('Xəta','Saxlama alınmadı.','&#x26A0;&#xFE0F;');
+    showModal('Xəta','Saxlama alınmadı.','⚠️');
   }
 };
 
-// ── DASHBOARD TOGGLE ──────────────────────────
+// ── TOGGLE ACTIVE ─────────────────────────────
 window.toggleActive = async function(el) {
   el.classList.toggle('on');
   const on = el.classList.contains('on');
-  document.getElementById('dash-status').textContent = on ? 'Aktiv' : 'Offline';
-  document.getElementById('dash-status').className   = on ? 'badge bgr' : 'badge bgy';
-  if (curBarberId) {
-    try { await updateDoc(doc(db,'barbers',curBarberId), { isActive: on }); } catch(e) {}
+  const st = document.getElementById('dash-status');
+  st.textContent = on ? 'Aktiv' : 'Offline';
+  st.className   = on ? 'badge bgr' : 'badge bgy';
+  if (currentUser) {
+    try { await updateDoc(doc(db,'barbers',currentUser.uid), { isActive: on }); } catch(e) {}
   }
 };
 
-// ── PHOTO UPLOAD ──────────────────────────────
-window.uploadAva = function(input, circleId, emojiId) {
-  const file = input.files[0]; if (!file) return;
-  const r = new FileReader();
-  r.onload = e => {
-    const c = document.getElementById(circleId);
-    document.getElementById(emojiId).style.display = 'none';
-    let img = c.querySelector('img');
-    if (!img) { img = document.createElement('img'); c.insertBefore(img, c.firstChild); }
-    img.src = e.target.result;
-  };
-  r.readAsDataURL(file);
-};
-
-window.portPic = function(input, idx) {
-  const file = input.files[0]; if (!file) return;
-  const r = new FileReader();
-  r.onload = e => {
-    const cells = document.querySelectorAll('#port-grid .pcell');
-    if (!cells[idx]) return;
-    cells[idx].innerHTML = '';
-    cells[idx].classList.remove('add');
-    const img = document.createElement('img');
-    img.src = e.target.result;
-    cells[idx].appendChild(img);
-  };
-  r.readAsDataURL(file);
-};
-
-// ── SET DEFAULT DATE ──────────────────────────
+// ── DEFAULT DATE ──────────────────────────────
 document.getElementById('bk-date').value = new Date().toISOString().split('T')[0];
-
-// ── AUTO-LOAD BARBERS on client home ─────────
-const obs = new MutationObserver(() => {
-  if (document.getElementById('pg-client-home').classList.contains('show')) {
-    if (!allBarbers.length) loadBarbers();
-  }
-});
-obs.observe(document.getElementById('pg-client-home'), { attributes: true, attributeFilter: ['class'] });
 </script>
 </body>
 </html>
